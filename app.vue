@@ -2,6 +2,6 @@
   <div>
     <!-- <NuxtRouteAnnouncer />
     <NuxtWelcome /> -->
-    <Test/>
+    <nuxt-link to="/auth">app vue</nuxt-link>
   </div>
 </template>
