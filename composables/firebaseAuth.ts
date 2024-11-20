@@ -4,9 +4,10 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { useFirebaseServices } from "../utils/firebase.ts";
+import { useFirebaseServices } from "../utils/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
-export default function useAuth() {
+export function useAuth() {
   const { auth, db } = useFirebaseServices();
   const user = ref();
   const error = ref<string | null>(null);
@@ -20,6 +21,9 @@ export default function useAuth() {
       );
       user.value = userCredential.user;
       error.value = null;
+      if (userCredential.user) {
+        await storeUser(userCredential.user.uid);
+      }
     } catch (err: any) {
       error.value = err.message;
     }
@@ -48,24 +52,20 @@ export default function useAuth() {
       error.value = err.message;
     }
   };
-  const storeUser = async () => {
-    const uid = auth.currentUser.uid;
-
-    db
-      .collection("users")
-      .doc(uid)
-      .set({
+  const storeUser = async (uid: string) => {
+    try {
+      await setDoc(doc(db, "users", uid), {
         authId: uid,
         male: true,
         collection: [],
-      })
-      .then(() => {
-        console.log("User data added to Firestore");
-      })
-      .catch((error) => {
-        console.error("Error adding user data: ", error);
       });
+      console.log("User data added to Firestore");
+    } catch (err: any) {
+      console.error("Error adding user data: ", err);
+      throw err;
+    }
   };
+
 
   return {
     user,

@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import useFirebaseAuth from "../composables/firebaseAuth";
+import { useAuth } from "../composables/firebaseAuth";
 
-const { user, login, signUp } = useFirebaseAuth();
+const { login, signUp } = useAuth();
 
 const email = ref("");
 const password = ref("");
