@@ -24,6 +24,23 @@ const login = async () => {
   } catch (error) {
     message.value = error.message;
   }
+
+const storeUser = async () => {
+const uid = firebase.auth().currentUser.uid;
+
+firebase.firestore().collection('users').doc(uid).set({
+    authId: uid,
+    male: true,
+    collection: []
+})
+.then(() => {
+    console.log("User data added to Firestore");
+})
+.catch((error) => {
+    console.error("Error adding user data: ", error);
+});
+
+}
 };
 </script>
 
