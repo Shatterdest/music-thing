@@ -1,41 +1,11 @@
 <script setup>
 import { ref } from "vue";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import useFirebaseAuth from "../composables/firebaseAuth";
 
-const { user, isLoggedIn, signOutUser } = useFirebaseAuth();
+const { user, login, signUp } = useFirebaseAuth();
 
 const email = ref("");
 const password = ref("");
-const message = ref("");
-
-const signUp = async () => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email.value,
-      password.value
-    );
-    message.value = `Welcome, ${userCredential.user.email}! Account created successfully.`;
-  } catch (error) {
-    message.value = error.message;
-  }
-};
-
-const login = async () => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email.value,
-      password.value
-    );
-    message.value = `Welcome back, ${userCredential.user.email}! You are logged in.`;
-  } catch (error) {
-    message.value = error.message;
-  }
 
   const storeUser = async () => {
     const uid = auth.currentUser.uid;
@@ -65,6 +35,5 @@ const login = async () => {
     <input type="password" v-model="password" placeholder="Password" />
     <button @click="signUp">Sign Up</button>
     <button @click="login">Login</button>
-    <p>{{ message }}</p>
   </div>
 </template>
