@@ -1,8 +1,12 @@
 <script setup>
 import { ref } from "vue";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import useFirebaseAuth from "../composables/firebaseAuth";
 
-const { $firebaseAuth } = useNuxtApp();
+const { user, isLoggedIn, signOutUser } = useFirebaseAuth();
 
 const email = ref("");
 const password = ref("");
@@ -10,7 +14,11 @@ const message = ref("");
 
 const signUp = async () => {
   try {
-    const userCredential = await createUserWithEmailAndPassword($firebaseAuth, email.value, password.value);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email.value,
+      password.value
+    );
     message.value = `Welcome, ${userCredential.user.email}! Account created successfully.`;
   } catch (error) {
     message.value = error.message;
@@ -19,28 +27,35 @@ const signUp = async () => {
 
 const login = async () => {
   try {
-    const userCredential = await signInWithEmailAndPassword($firebaseAuth, email.value, password.value);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email.value,
+      password.value
+    );
     message.value = `Welcome back, ${userCredential.user.email}! You are logged in.`;
   } catch (error) {
     message.value = error.message;
   }
 
-const storeUser = async () => {
-const uid = firebase.auth().currentUser.uid;
+  const storeUser = async () => {
+    const uid = auth.currentUser.uid;
 
-firebase.firestore().collection('users').doc(uid).set({
-    authId: uid,
-    male: true,
-    collection: []
-})
-.then(() => {
-    console.log("User data added to Firestore");
-})
-.catch((error) => {
-    console.error("Error adding user data: ", error);
-});
-
-}
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .set({
+        authId: uid,
+        male: true,
+        collection: [],
+      })
+      .then(() => {
+        console.log("User data added to Firestore");
+      })
+      .catch((error) => {
+        console.error("Error adding user data: ", error);
+      });
+  };
 };
 </script>
 
