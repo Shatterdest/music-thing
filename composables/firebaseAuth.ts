@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
-export function useAuth() {
+export default function useAuth() {
   const { $firebaseAuth } = useNuxtApp();
   const auth = $firebaseAuth
   const user = ref();

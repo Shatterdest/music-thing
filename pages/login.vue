@@ -25,7 +25,7 @@ const password = ref("");
       .catch((error) => {
         console.error("Error adding user data: ", error);
       });
-  };
+  
 };
 </script>
 
@@ -33,7 +33,7 @@ const password = ref("");
   <div>
     <input type="email" v-model="email" placeholder="Email" />
     <input type="password" v-model="password" placeholder="Password" />
-    <button @click="signUp">Sign Up</button>
-    <button @click="login">Login</button>
+    <button @click="signUp(email,password)">Sign Up</button>
+    <button @click="login(email,password)">Login</button>
   </div>
 </template>
