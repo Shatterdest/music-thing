@@ -4,7 +4,15 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+
+const userStore = UserStore();
+
+onMounted(() => {
+    getPokemon();
+
+})
+
 
 </script>
 
