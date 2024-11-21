@@ -2,12 +2,10 @@
 import { ref } from "vue";
 import { useAuth } from "../composables/firebaseAuth";
 
-const { login, signUp } = useAuth();
+const { login, signUp, error } = useAuth();
 
 const email = ref("");
 const password = ref("");
-
-
 </script>
 
 <template>
@@ -16,5 +14,6 @@ const password = ref("");
     <input type="password" v-model="password" placeholder="Password" />
     <button @click="signUp(email, password)">Sign Up</button>
     <button @click="login(email, password)">Login</button>
+    <p>{{ error }}</p>
   </div>
 </template>
