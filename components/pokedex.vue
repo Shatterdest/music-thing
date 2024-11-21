@@ -138,3 +138,10 @@
         </div>
     </div>
 </template>
+<style>
+::-webkit-scrollbar { width: 20px; height: 20px; }
+::-webkit-scrollbar-track {background: #1e1e1e; border: 1px solid #333; }
+::-webkit-scrollbar-thumb {background-image: linear-gradient(90deg, #ffcc00 25%, #ff9900 25%, #ff9900 50%, #ffcc00 50%, #ffcc00 75%, #ff9900 75%); background-size: 20px 20px; border: 2px solid #000; }
+::-webkit-scrollbar-thumb:hover {background-image: linear-gradient(90deg, #ff6600 25%, #cc3300 25%, #cc3300 50%, #ff6600 50%, #ff6600 75%, #cc3300 75%);}
+::-webkit-scrollbar-corner {background: #1e1e1e;}
+</style>
