@@ -130,7 +130,7 @@
                 </div>
                 <div style="width: 100%; height: 566px; background-color: pink; position: relative;">
                     <img class="variable2Img" style="width: 100%; height: 568px; position: absolute; top: 0; left: 0; z-index: 1;"src="/public/synthWave.jpg" alt="">
-                    <img class="variableImg" style="width: 900px; height: 900px; position: absolute; top: 50%; left: 50%; z-index: 2; transform: translate(-50%, -50%); image-rendering: pixelated;" src="/public/4.png" alt="Centered image">                </div>
+                    <img class="variableImg" style="width: 900px; height: 900px; position: absolute; top: 50%; left: 50%; z-index: 2; transform: translate(-50%, -50%); image-rendering: pixelated; filter: drop-shadow(10px 10px 10px #FFEDEE);" src="/public/4.png" alt="Centered image">                </div>
                 <div style="width: 100%; height: 84px; border-top-width: 10px; border-top-style: solid; background-color: #E53A35; border-bottom-right-radius: 20px ">
                     <div class="test10" style="font-size: 50px; font-family: 'Pixelify Sans', sans-serif; margin-left: 10px; margin-top: 10px; display: flex; justify-content: left; align-items: center; width: 100%;"> Caught: Some Number</div>
                 </div>
