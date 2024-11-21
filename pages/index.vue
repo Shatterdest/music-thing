@@ -1,5 +1,6 @@
 <template>
     This is the index.vue
+    <pokedex></pokedex>
 </template>
 
 
