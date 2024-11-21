@@ -1,13 +1,11 @@
 <template>
-    <div>
-        index page
-    </div>
+    This is the index.vue
 </template>
 
-<script setup>
 
+<script>
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+/* Optional: Add global styling here if necessary */
 </style>
