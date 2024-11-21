@@ -1,13 +1,12 @@
 <template>
-    <div>
-        index page
-    </div>
+    This is the index.vue
+    <pokedex></pokedex>
 </template>
 
-<script setup>
 
+<script>
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+/* Optional: Add global styling here if necessary */
 </style>
