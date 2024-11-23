@@ -1,6 +1,6 @@
 <template>
-    This is the index.vue
-    <pokedex></pokedex>
+    This is index.vue
+    <ddr></ddr>
 </template>
 
 <script setup lang="ts">
@@ -13,7 +13,6 @@ onMounted(() => {
 })
 
 
-<script>
 </script>
 
 <style>
