@@ -1,22 +1,6 @@
 
-<script setup>
-import { ref } from "vue";
-import { useAuth } from "../composables/firebaseAuth";
-
-const { login, signUp, error } = useAuth();
-
-const email = ref("");
-const password = ref("");
-</script>
 
 <template>
-  <div>
-    <input type="email" v-model="email" placeholder="Email" />
-    <input type="password" v-model="password" placeholder="Password" />
-    <button @click="signUp(email, password)">Sign Up</button>
-    <button @click="login(email, password)">Login</button>
-    <p>{{ error }}</p>
-  </div>
     <div class="background">
         <div class="leftUserLoginDiv">
             <div class="urstxtLoginBoxBG">
@@ -24,18 +8,9 @@ const password = ref("");
             </div>
             <div class="generalDiv">
                 <div class="mainUserThingBG">
-                    <div class="mainThingTxt">Username:</div>
-                    <div class="mainThingInputBg">
-                        <input class="mainThingInputFd" type="email" v-model="email" placeholder="Username:" />
-                    </div>
-                    <div class="mainThingTxt">Password:</div>
-                    <div class="mainThingInputBg">
-                        <input class="mainThingInputFd" type="password" v-model="password" placeholder="Password:" />
-                    </div>
-                    <button class="greenLoginBTN" @click="login(email, password)">LOGIN</button>
-                    <div class="noAccDiv">
-                        <div class="mainThingSmallTxt">Don’t Have an Account? </div>
-                        <button class="signUpRedirectBtn">Sign Up</button>
+                    <div class="mainThingTxt">
+                        We are a team of creative thinkers - a group putting an original twist on the classic Pokémon game. 
+P.S. We do not own any rights to Pokémon or associated products. This is an educational, not for profit conceptual demonstration.
                     </div>
                 </div>
                 <div class="pokemonLogoContainer">
@@ -45,7 +20,6 @@ const password = ref("");
         </div>
         <div class="bottomButtons">
             <ReturnToMainButton />
-            <AboutUsButton />
         </div>
     </div>
 </template>
@@ -66,26 +40,6 @@ const password = ref("");
     display: flex; 
     justify-content: center; 
     align-items: center;
-    text-align: center; 
-    line-height: 1; 
-    cursor: pointer;
-
-}
-.aboutUsBtn{
-    background-color: #B8D0F8;
-    width: 920px;
-    height: 95px;
-    border-radius: 30px;
-    border-color: black;
-    border-style: solid;
-    border-width: 10px;
-    margin-left: 40px;
-    margin-top: 80px;
-    font-size: 80px;
-    font-family: 'Pixelify Sans', sans-serif;
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
     text-align: center; 
     line-height: 1; 
     cursor: pointer;
@@ -152,54 +106,11 @@ const password = ref("");
 
 
 .mainThingTxt {
-    font-size: 80px;
+    font-size: 60px;
     font-family: 'Pixelify Sans', sans-serif;
     margin-left: 20px;
 }
 
-.mainThingInputBg {
-    width: 780px;
-    height: 95px;
-    border-color: black;
-    border-style: solid;
-    border-width: 10px;
-    border-radius: 30px;
-    margin-left: 20px;
-    background-color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-}
-
-.mainThingInputFd {
-    border: none;
-    background-color: transparent;
-    font-size: 50px;
-    font-family: 'Pixelify Sans', sans-serif;
-    outline: none;
-    width: 100%;
-    height: 100%;
-    margin-right: 20px;
-}
-
-.greenLoginBTN {
-    background-color: #67FF0F;
-    width: 780px;
-    height: 95px;
-    border-color: black;
-    border-style: solid;
-    border-width: 10px;
-    border-radius: 30px;
-    margin-left: 20px;
-    margin-top: 20px;
-    font-size: 80px;
-    font-family: 'Pixelify Sans', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    cursor: pointer;
-}
 
 .signUpRedirectBtn {
     background-color: #FFFFFF;
@@ -229,12 +140,6 @@ const password = ref("");
     padding-left: 6px;
     padding-right: 6px;
     margin-left: 20px;
-}
-
-.noAccDiv {
-    display: flex;
-    height: 135px;
-    align-items: center;
 }
 
 .pokemonLogoContainer {
