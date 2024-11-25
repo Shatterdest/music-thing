@@ -1,5 +1,6 @@
 <template>
     This is index.vue
+    <ddr></ddr>
 </template>
 
 <script setup lang="ts">
