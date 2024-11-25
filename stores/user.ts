@@ -1,3 +1,7 @@
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+
+
 export const useUserStore = defineStore("userStore", () => {
 
     const email = ref('')
@@ -6,4 +10,13 @@ export const useUserStore = defineStore("userStore", () => {
     const refreshToken = ref('')  
     const pokemon = ref<(PokemonObject)[]>([]);
 
+    function $reset() {
+        email.value = ''
+        displayName.value = ''
+        token.value = ''
+        refreshToken.value = ''
+        pokemon.value = []
+    }
+
+    return { email, displayName, token, refreshToken, pokemon, $reset }
 });
