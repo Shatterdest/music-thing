@@ -4,22 +4,22 @@
     <div class="background">
         <div class="leftUserLoginDiv">
             <div class="urstxtLoginBoxBG">
-                <div class="urstxtLoginBoxFG">User LOGIN:</div>
+                <div class="urstxtLoginBoxFG">User SignUp:</div>
             </div>
             <div class="generalDiv">
                 <div class="mainUserThingBG">
-                    <div class="mainThingTxt">Username:</div>
+                    <div class="mainThingTxt">Enter Username:</div>
                     <div class="mainThingInputBg">
                         <input class="mainThingInputFd" type="email" v-model="email" placeholder="Username:" />
                     </div>
-                    <div class="mainThingTxt">Password:</div>
+                    <div class="mainThingTxt">Create a Password:</div>
                     <div class="mainThingInputBg">
                         <input class="mainThingInputFd" type="password" v-model="password" placeholder="Password:" />
                     </div>
-                    <button class="greenLoginBTN" @click="login(email, password)">LOGIN</button>
+                    <button class="greenLoginBTN" @click="signUp(email, password)">Create an Account</button>
                     <div class="noAccDiv">
-                        <div class="mainThingSmallTxt">Don’t Have an Account? </div>
-                        <button class="signUpRedirectBtn">Sign Up</button>
+                        <div class="mainThingSmallTxt">Already Have an Account? </div>
+                        <button class="signInRedirectBtn">Sign In</button>
                     </div>
                 </div>
                 <div class="pokemonLogoContainer">
@@ -185,9 +185,9 @@
     cursor: pointer;
 }
 
-.signUpRedirectBtn {
+.signInRedirectBtn {
     background-color: #FFFFFF;
-    width: 290px;
+    width: 240px;
     height: 60px;
     border-color: black;
     border-style: solid;
