@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import useFirebaseAuth from "../composables/firebaseAuth";
+import useAuth from "../composables/firebaseAuth";
 
-const { logout } = useFirebaseAuth();
+const { logout } = useAuth();
 </script>

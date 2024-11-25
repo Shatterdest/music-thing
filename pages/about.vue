@@ -1,10 +1,10 @@
-
+<script setup></script>
 
 <template>
     <div class="background">
         <div class="leftUserLoginDiv">
             <div class="urstxtLoginBoxBG">
-                <div class="urstxtLoginBoxFG">User LOGIN:</div>
+                <div class="urstxtLoginBoxFG">About Us:</div>
             </div>
             <div class="generalDiv">
                 <div class="mainUserThingBG">

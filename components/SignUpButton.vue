@@ -1,7 +1,7 @@
-<template>
+<template><nuxt-link to="signup">
     <button class="mainsignupDiv" @click="onClick">
       <div class="textDiv2">{{ text }}</div>
-    </button>
+    </button></nuxt-link>
   </template>
   
   <script>

@@ -1,7 +1,9 @@
 <template>
+  <nuxt-link to="/about">
     <button class="aboutUsBtn">
       About Us
     </button>
+  </nuxt-link>
   </template>
   
   <script setup>
