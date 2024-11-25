@@ -8,9 +8,11 @@ import { useFirebaseServices } from "../utils/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 export function useAuth() {
+  
   const { auth, db } = useFirebaseServices();
   const user = ref();
   const error = ref<string | null>(null);
+  const userStore = useUserStore()
 
   const signUp = async (email: string, password: string) => {
     try {
@@ -23,6 +25,7 @@ export function useAuth() {
       error.value = null;
       if (userCredential.user) {
         await storeUser(userCredential.user.uid);
+        userStore.email
       }
     } catch (err: any) {
       error.value = err.message;

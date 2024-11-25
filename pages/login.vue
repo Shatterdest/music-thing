@@ -3,20 +3,13 @@
 import { ref } from "vue";
 import { useAuth } from "../composables/firebaseAuth";
 
-const { login, signUp, error } = useAuth();
+const { login, error } = useAuth();
 
 const email = ref("");
 const password = ref("");
 </script>
 
 <template>
-  <div>
-    <input type="email" v-model="email" placeholder="Email" />
-    <input type="password" v-model="password" placeholder="Password" />
-    <button @click="signUp(email, password)">Sign Up</button>
-    <button @click="login(email, password)">Login</button>
-    <p>{{ error }}</p>
-  </div>
     <div class="background">
         <div class="leftUserLoginDiv">
             <div class="urstxtLoginBoxBG">
@@ -32,10 +25,13 @@ const password = ref("");
                     <div class="mainThingInputBg">
                         <input class="mainThingInputFd" type="password" v-model="password" placeholder="Password:" />
                     </div>
+                    <div v-if="error" class="errorMessage">{{ error }}</div>
                     <button class="greenLoginBTN" @click="login(email, password)">LOGIN</button>
                     <div class="noAccDiv">
                         <div class="mainThingSmallTxt">Don’t Have an Account? </div>
+                        <nuxt-link to="signup">
                         <button class="signUpRedirectBtn">Sign Up</button>
+                        </nuxt-link>
                     </div>
                 </div>
                 <div class="pokemonLogoContainer">
