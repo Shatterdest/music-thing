@@ -22,7 +22,7 @@
 </template>
 <script setup lang="ts">
 
-const userStore = UserStore();
+const userStore = useUserStore();
 
 onMounted(() => {
     getPokemon();

@@ -1,7 +1,7 @@
-<template>
+<template><nuxt-link to="/">
     <button class="returntomainBtn">
       Return to Main Menu
-    </button>
+    </button></nuxt-link>
   </template>
   
   <script setup>

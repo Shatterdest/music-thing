@@ -1,4 +1,13 @@
 
+<script setup>
+import { ref } from "vue";
+import { useAuth } from "../composables/firebaseAuth";
+
+const { login, error } = useAuth();
+
+const email = ref("");
+const password = ref("");
+</script>
 
 <template>
     <div class="background">
@@ -16,10 +25,13 @@
                     <div class="mainThingInputBg">
                         <input class="mainThingInputFd" type="password" v-model="password" placeholder="Password:" />
                     </div>
+                    <div v-if="error" class="errorMessage">{{ error }}</div>
                     <button class="greenLoginBTN" @click="login(email, password)">LOGIN</button>
                     <div class="noAccDiv">
                         <div class="mainThingSmallTxt">Don’t Have an Account? </div>
+                        <nuxt-link to="signup">
                         <button class="signUpRedirectBtn">Sign Up</button>
+                        </nuxt-link>
                     </div>
                 </div>
                 <div class="pokemonLogoContainer">
