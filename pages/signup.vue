@@ -1,9 +1,8 @@
-
 <script setup>
 import { ref } from "vue";
 import { useAuth } from "../composables/firebaseAuth";
 
-const { login, error } = useAuth();
+const {signUp, error } = useAuth();
 
 const email = ref("");
 const password = ref("");
@@ -13,25 +12,25 @@ const password = ref("");
     <div class="background">
         <div class="leftUserLoginDiv">
             <div class="urstxtLoginBoxBG">
-                <div class="urstxtLoginBoxFG">User LOGIN:</div>
+                <div class="urstxtLoginBoxFG">User SignUp:</div>
             </div>
             <div class="generalDiv">
                 <div class="mainUserThingBG">
-                    <div class="mainThingTxt">Username:</div>
+                    <div class="mainThingTxt">Enter Username:</div>
                     <div class="mainThingInputBg">
                         <input class="mainThingInputFd" type="email" v-model="email" placeholder="Username:" />
                     </div>
-                    <div class="mainThingTxt">Password:</div>
+                    <div class="mainThingTxt">Create a Password:</div>
                     <div class="mainThingInputBg">
                         <input class="mainThingInputFd" type="password" v-model="password" placeholder="Password:" />
                     </div>
                     <div v-if="error" class="errorMessage">{{ error }}</div>
-                    <button class="greenLoginBTN" @click="login(email, password)">LOGIN</button>
+                    <button class="greenLoginBTN" @click="signUp(email, password)">Create an Account</button>
                     <div class="noAccDiv">
-                        <div class="mainThingSmallTxt">Don’t Have an Account? </div>
-                        <nuxt-link to="signup">
-                        <button class="signUpRedirectBtn">Sign Up</button>
-                        </nuxt-link>
+                        <div class="mainThingSmallTxt">Already Have an Account? </div>
+                        <nuxt-link to="login">
+                        <button class="signInRedirectBtn">Sign In</button>
+                    </nuxt-link>
                     </div>
                 </div>
                 <div class="pokemonLogoContainer">
@@ -197,9 +196,9 @@ const password = ref("");
     cursor: pointer;
 }
 
-.signUpRedirectBtn {
+.signInRedirectBtn {
     background-color: #FFFFFF;
-    width: 290px;
+    width: 240px;
     height: 60px;
     border-color: black;
     border-style: solid;
