@@ -1,60 +1,88 @@
 <template>
-  <div id="canvas" style="bg-black-100">
-    <canvas width="2225px" height="940" ref="canvas"> </canvas>
+  <div id="canvas">
+    <canvas ref="canvas" width="2225" height="1600"></canvas>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
+
 const canvas = ref(null);
-let playerxPos = 3000;
-let playeryPos = 3000;
 
 onMounted(() => {
   if (canvas.value && canvas.value.getContext) {
-    const c = canvas.value.getContext("2d");
+    const ctx = canvas.value.getContext("2d");
+
+    canvas.value.width = window.innerWidth;
+    canvas.value.height = window.innerHeight;
+
     class Sprite {
-      constructor({ pos, properties }) {
-        this.pos = pos;
-        this.properties = properties;
+      constructor({ position, velocity, image, frames = { max: 1, hold: 10 }, sprites, animate = false, scale = 2 }) {
+        this.position = position;
+        this.velocity = velocity;
+        this.image = new Image();
+        this.frames = { ...frames, val: 0, elapsed: 0 };
+        this.image.onload = () => {
+          this.width = (this.image.width / this.frames.max) * scale;
+          this.height = this.image.height * scale;
+        };
+        this.image.src = image.src;
+
+        this.animate = animate;
+        this.sprites = sprites;
+        this.scale = scale;
       }
 
       draw() {
-        c.drawImage(this.properties.image, this.pos.x, this.pos.y);
+        const crop = {
+          x: this.frames.val * (this.image.width / this.frames.max),
+          y: 0,
+          width: this.image.width / this.frames.max,
+          height: this.image.height,
+        };
+
+        ctx.drawImage(
+          this.image,
+          crop.x,
+          crop.y,
+          crop.width,
+          crop.height,
+          this.position.x,
+          this.position.y,
+          crop.width * this.scale,
+          crop.height * this.scale
+        );
+
+        if (!this.animate) return;
+
+        this.frames.elapsed++;
+        if (this.frames.elapsed % this.frames.hold === 0) {
+          this.frames.val = (this.frames.val + 1) % this.frames.max;
+        }
       }
     }
-    const bg = new Image();
-    bg.src = "character.jpg";
 
     const background = new Sprite({
-      pos: {
-        x: 0,
-        y: 0,
-      },
-      properties: {
-        image: bg,
-      },
+      position: { x: -760 , y: -620 },
+      image: { src: "map.png" },
     });
 
-    const plyr = new Image();
-    plyr.src = "map.jpg";
     const player = new Sprite({
-      pos: {
-        x: 0,
-        y: 0,
+      position: { x: canvas.value.width / 2 - 48, y: canvas.value.height / 2 - 34 },
+      image: { src: "player_forward.png" },
+      frames: { max: 3, hold: 10 },
+      sprites: {
+        up: { src: "player_back.png" },
+        left: { src: "player_left.png" },
+        down: { src: "player_forward.png" },
+        right: { src: "player_right.png" },
       },
-      properties: {
-        image: plyr,
-      },
+      animate: true,
     });
 
-    const keys = {
-      up: false,
-      down: false,
-      left: false,
-      right: false,
-    };
-
+    const keys = { up: false, down: false, left: false, right: false };
     let lastKeyPressed = "";
+
     const keyMap = {
       ArrowUp: "up",
       w: "up",
@@ -65,43 +93,55 @@ onMounted(() => {
       ArrowRight: "right",
       d: "right",
     };
-    window.addEventListener("keydown", (event) => {
-      const direction = keyMap[event.key];
-      if (direction) {
-        keys[direction] = true;
-        lastKeyPressed = direction;
-      }
-    });
 
-    window.addEventListener("keyup", (event) => {
-      const direction = keyMap[event.key];
-      if (direction) {
-        keys[direction] = false;
-      }
-    });
+    
+    window.addEventListener("keydown", (event) => {
+  const direction = keyMap[event.key];
+  if (direction && lastKeyPressed !== direction) {
+    lastKeyPressed = direction;
+
+    player.image.src = player.sprites[direction].src;
+    player.animate = true;
+
+    Object.keys(keys).forEach((key) => (keys[key] = key === direction));
+  }
+});
+
+window.addEventListener("keyup", (event) => {
+  const direction = keyMap[event.key];
+  if (direction) {
+    keys[direction] = false;
+
+    if (lastKeyPressed === direction) {
+      lastKeyPressed = ""; 
+      player.animate = false;
+    }
+  }
+});
+
     function animate() {
       window.requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       background.draw();
       player.draw();
-      handleMovement();
-      function handleMovement() {
-        const directions = {
-          up: { x: 0, y: 12, sprite: 'x' },
-          down: { x: 0, y: -12, sprite: 'x' },
-          left: { x: 12, y: 0, sprite: 'x' },
-          right: { x: -12, y: 0, sprite: 'x' },
-        };
 
-        Object.entries(directions).forEach(([key, { x, y }]) => {
-          if (keys[key] && lastKeyPressed === key) {
-            movePlayer(x, y);
-          }
-        });
-      }
-      function movePlayer(offsetX, offsetY) {
-        background.pos.x -= offsetX;
-        background.pos.y -= offsetY;
-    }}
+      handleMovement();
+    }
+
+    function handleMovement() {
+  const movementOffsets = {
+    up: { x: 0, y: -6 },
+    down: { x: 0, y: 6 },
+    left: { x: -6, y: 0 },
+    right: { x: 6, y: 0 },
+  };
+
+  if (lastKeyPressed && keys[lastKeyPressed]) {
+    const offset = movementOffsets[lastKeyPressed];
+    background.position.x -= offset.x;
+    background.position.y -= offset.y;
+  }
+}
     animate();
   } else {
     console.error("Canvas is not supported or not found.");
@@ -109,4 +149,20 @@ onMounted(() => {
 });
 </script>
 
-<style></style>
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  image-rendering: pixelated;
+}
+</style>
