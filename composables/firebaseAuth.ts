@@ -25,7 +25,7 @@ export function useAuth() {
       error.value = null;
       if (userCredential.user) {
         await storeUser(userCredential.user.uid);
-        userStore.email
+        // userStore.email
       }
     } catch (err: any) {
       error.value = err.message;
