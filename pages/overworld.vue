@@ -1,6 +1,6 @@
 <template>
   <div id="canvas">
-    <canvas ref="canvas" width="2225" height="1600"></canvas>
+    <canvas ref="canvas" width="100vw" height="100vh"></canvas>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ onMounted(() => {
     canvas.value.height = window.innerHeight;
 
     class Sprite {
-      constructor({ position, velocity, image, frames = { max: 1, hold: 10 }, sprites, animate = false, scale = 2 }) {
+      constructor({ position, velocity, image, frames = { max: 1, hold: 12 }, sprites, animate = false, scale = 2.25 }) {
         this.position = position;
         this.velocity = velocity;
         this.image = new Image();
@@ -35,12 +35,18 @@ onMounted(() => {
 
       draw() {
         const crop = {
-          x: this.frames.val * (this.image.width / this.frames.max),
+          x: 0,
+          y: 0,
+          width: this.image.width/ this.frames.max,
+          height: this.image.height,
+        };
+        if(animate==true){
+          crop = {x: this.frames.val * (this.image.width / this.frames.max),
           y: 0,
           width: this.image.width / this.frames.max,
           height: this.image.height,
-        };
-
+        }}
+        
         ctx.drawImage(
           this.image,
           crop.x,
@@ -69,15 +75,15 @@ onMounted(() => {
 
     const player = new Sprite({
       position: { x: canvas.value.width / 2 - 48, y: canvas.value.height / 2 - 34 },
-      image: { src: "player_forward.png" },
+      image: { src: "/player/player_forward.png" },
       frames: { max: 3, hold: 10 },
       sprites: {
-        up: { src: "player_back.png" },
-        left: { src: "player_left.png" },
-        down: { src: "player_forward.png" },
-        right: { src: "player_right.png" },
+        up: { src: "/player/player_back.png" },
+        left: { src: "/player/player_left.png" },
+        down: { src: "/player/player_forward.png" },
+        right: { src: "/player/player_right.png" },
       },
-      animate: true,
+      animate: false,
     });
 
     const keys = { up: false, down: false, left: false, right: false };
@@ -161,8 +167,7 @@ body {
 
 canvas {
   display: block;
-  width: 100vw;
-  height: 100vh;
+
   image-rendering: pixelated;
 }
 </style>
