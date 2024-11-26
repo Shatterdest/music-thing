@@ -1,28 +1,28 @@
 <template>
   <div class="h-screen border border-red-600">
-    Mouse position: {{ arrowPos.top }}
+    Arrow: {{ stillArrow }}
     <div class="relative h-72">
       <div class="h-full w-2/5 border border-black">
         <div class="absolute animate-fall">
-          <div id="move">TEST</div>
+          <span id="dynamicArrow">TEST</span>
           <img src="../public/Arrow.png" />
         </div>
-
-        <span id="moveStaticBox"></span><img class="absolute bottom-0" src="../public/Arrow.png" />
+        <img class="absolute bottom-0" id="staticArrow" src="../public/Arrow.png" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="js">
+onMounted(() => {
+  fallArrow.value = document.getElementById("dynamicArrow").getBoundingClientRect().top.toFixed(0);
+
+  stillArrow.value = document.getElementById("staticArrow").getBoundingClientRect().top.toFixed(0);
+});
+
+const fallArrow = ref();
+const stillArrow = ref();
 const y = ref(0);
-
-function update(event) {
-  y.value = event.pageY;
-}
-
-const arrowImg = document.getElementById("move");
-let arrowPos = arrowImg.getBoundingClientRect();
 
 /*
 1) Variable in y-position of image
