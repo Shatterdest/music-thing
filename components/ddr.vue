@@ -3,8 +3,7 @@
     Arrow: {{ stillArrow }}
     <div class="relative h-72">
       <div class="h-full w-2/5 border border-black">
-        <div class="absolute animate-fall">
-          <span id="dynamicArrow">TEST</span>
+        <div id="dynamicArrow" class="absolute animate-fall">
           <img src="../public/Arrow.png" />
         </div>
         <img class="absolute bottom-0" id="staticArrow" src="../public/Arrow.png" />
@@ -15,13 +14,31 @@
 
 <script setup lang="js">
 onMounted(() => {
-  fallArrow.value = document.getElementById("dynamicArrow").getBoundingClientRect().top.toFixed(0);
-
   stillArrow.value = document.getElementById("staticArrow").getBoundingClientRect().top.toFixed(0);
 });
 
 const fallArrow = ref();
 const stillArrow = ref();
+
+async function testFall() {
+  let i = 0;
+  while (i <= 1) {
+    fallArrow.value = document.getElementById("dynamicArrow").getBoundingClientRect().top.toFixed(0);
+    if (fallArrow.value == 150) {
+      console.log(fallArrow.value);
+      i++;
+    } else {
+      console.log(fallArrow.value);
+    }
+  }
+}
+
+testFall();
+
+/* while (fallArrow.value !== 200) {
+  console.log(fallArrow.value);
+}
+ */
 const y = ref(0);
 
 /*
