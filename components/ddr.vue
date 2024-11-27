@@ -21,31 +21,42 @@ const fallArrow = ref();
 const stillArrow = ref();
 
 async function testFall() {
-  let i = 0;
-  while (i <= 1) {
-    fallArrow.value = document.getElementById("dynamicArrow").getBoundingClientRect().top.toFixed(0);
-    if (fallArrow.value == 150) {
-      console.log(fallArrow.value);
-      i++;
-    } else {
-      console.log(fallArrow.value);
-    }
+  fallArrow.value = document.getElementById("dynamicArrow").getBoundingClientRect().top.toFixed(0);
+  if (fallArrow.value >= 150 && fallArrow.value < 151) {
+    console.log(fallArrow.value);
   }
 }
 
+setInterval(checkPosition, 20);
+
 testFall();
 
-/* while (fallArrow.value !== 200) {
-  console.log(fallArrow.value);
-}
- */
-const y = ref(0);
+/* 
 
-/*
-1) Variable in y-position of image
-2) Set timer.
-3) As time increases, decrease y-position by .01 per milisecond.
-*/
+function trackElementPosition() {
+  // Get the element you want to track
+  const element = document.getElementById('movingElement');
+
+  // Function to check the element's position
+  function checkPosition() {
+    // Get the current left position of the element (in pixels)
+    const elementPosition = element.getBoundingClientRect().left;
+
+    // Check if the position is 50px
+    if (elementPosition >= 50 && elementPosition < 51) {
+      console.log("yes");
+    }
+  }
+
+  // Check position periodically (every 20 milliseconds)
+  setInterval(checkPosition, 20);
+}
+
+
+
+
+
+ */
 </script>
 
 <style scoped></style>
