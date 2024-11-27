@@ -9,7 +9,14 @@ export default {
     "./error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        pixelifySans: ["Pixelify Sans", "sans-serif"],
+      },
+      colors: {
+        'creamy-white': '#FFEFEF',
+      },
+    },
   },
   plugins: [],
 };

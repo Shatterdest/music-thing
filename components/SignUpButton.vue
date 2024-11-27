@@ -1,44 +1,42 @@
 <template>
-    <button class="mainsignupDiv" @click="onClick">
-      <div class="textDiv2">{{ text }}</div>
-    </button>
+    <div class="rounded-[25px] border-[5px] border-solid border-black h-[18] bg-creamy-white lg:max-w-[40]" @click="onClick">
+      <div class="font-pixelifySans text-center text-5xl mt-1 mb-2 ml-2 mr-2">{{ computedText }}</div>
+    </div>
   </template>
   
   <script>
-  export default {
-    props: {
-      text: {
-        type: String,
-        default: "Press to Sign-Up",
-      },
+export default {
+  props: {
+    text: {
+      type: String,
+      default: "Press to Sign-Up",
     },
-    methods: {
-      onClick() {
-        this.$emit("click");
-      },
+  },
+  data() {
+    return {
+      windowWidth: window.innerWidth,
+    };
+  },
+  computed: {
+    computedText() {
+      // If the screen resolution is less than 'lg' (1024px), display "Sign-Up"
+      return this.windowWidth < 1024 ? "Sign-Up" : this.text;
     },
-  };
-  </script>
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
+    },
+    updateWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.updateWindowWidth);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateWindowWidth);
+  },
+};
+</script>
   
-  <style scoped>
-  .mainsignupDiv {
-    width: 700px;
-    height: 95px;
-    background-color: #FFEFEF;
-    border-radius: 30px;
-    border: 10px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .textDiv2 {
-    font-size: 80px;
-    width: 680px;
-    height: 75px;
-    font-family: 'Pixelify Sans', sans-serif;
-    text-align: center;
-    margin-top: -25px;
-  }
-  </style>

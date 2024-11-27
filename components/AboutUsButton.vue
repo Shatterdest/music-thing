@@ -1,30 +1,22 @@
 <template>
-    <button class="aboutUsBtn">
-      About Us
-    </button>
-  </template>
+  <div class="rounded-[25px] border-[5px] border-solid border-black h-[18] bg-creamy-white lg:max-w-[40]" @click="onClick">
+    <div class="font-pixelifySans text-center text-5xl mt-1 mb-2 ml-2 mr-2">{{ text }}</div>
+  </div>
+</template>
   
-  <script setup>
-  </script>
+<script>
+export default {
+  props: {
+    text: {
+      type: String,
+      default: "About Us",
+    },
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
+    },
+  },
+};
+</script>
   
-  <style scoped>
-  .aboutUsBtn{
-      background-color: #FFEFEF;
-      width: 920px;
-      height: 95px;
-      border-radius: 30px;
-      border-color: black;
-      border-style: solid;
-      border-width: 10px;
-      margin-left: 40px;
-      margin-top: 80px;
-      font-size: 80px;
-      font-family: 'Pixelify Sans', sans-serif;
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      text-align: center;
-      line-height: 1; 
-      cursor: pointer;
-  }
-  </style>
