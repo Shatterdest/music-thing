@@ -45,7 +45,7 @@ const password = ref("");
     </div>
 </template>
 
-<style>
+<style scoped>
 .returntomainBtn {
     background-color: #B8D0F8;
     width: 860px;

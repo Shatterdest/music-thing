@@ -13,3 +13,5 @@ import useAuth from "../composables/firebaseAuth";
 
 const { logout } = useAuth();
 </script>
+
+<style scoped></style>

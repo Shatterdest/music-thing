@@ -33,7 +33,7 @@ onMounted(() => {
 
 
 
-<style>
+<style scoped>
 .bottomButtons{
     display: flex;
 }
