@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
 import useFirebaseAuth from "../composables/firebaseAuth";
 
 const { logout } = useFirebaseAuth();

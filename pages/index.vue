@@ -1,3 +1,4 @@
+
 <template>
     <div class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden">
         <div>
@@ -89,4 +90,4 @@ export default {
     width: 100%;
     overflow-x: hidden;
 }
-</style>
+</style> 

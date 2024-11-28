@@ -1,147 +1,98 @@
 <template>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-    <div class="div1" style="width: 1778px; background: white; height: 857px; border-radius: 30px; border-color: black; border-width: 10px; border-style: solid; margin-left: auto; margin-right: auto; margin-top: 100px; margin-bottom: auto;">
-        <div class="div2" style="position: relative; width: calc(1778px + 50px); height: 95px; background: #4DAAFA; border-radius: 30px; border-top-left-radius: 30px; border-top-right-radius: 30px; border-color: black; border-width: 10px; border: solid 10px; margin-left: -35px; margin-right: -25px; margin-top: -10px">
-            <div class="div3" style="position: static; top: 0; left: 50%; transform: translateX(0%); width: 576px; height: 95px; background: #6CCBFB; border-radius: 30px; border-top-left-radius: 30px; border-top-right-radius: 30px; border-color: black; border-width: 10px; border-style: solid; margin-top: -10px; margin-left: -10px;">
-                <img src="/public/backwardsOrb.png" alt="image"
-                    style="position: absolute; top: 0; left: 0; width: 320px; height: 320px; margin-top: -113px; margin-left: -140px;">
-                <div class="div4"
-                    style="position: relative; width: 180px; height: 180px; background-color: #6CCBFB; border-width: 10px; border-style: solid; margin-left: 1705px; margin-top: -55px;">
-                    <img src="/public/questionThingie.png" alt="image"
-                        style="position: absolute; top: calc((100% - 150px) / 2); left: calc((100% - 150px) / 2); width: 150px; height: 150px; max-width: 150px; max-height: 150px;">
-                </div>
+    <div class="flex justify-center items-center h-screen w-screen">
+        <div class="flex justify-center items-center w-[98vw] h-[98vh]">
+            <div
+                class="relative w-full max-w-[88%] max-h-[90%] aspect-[4/3] border-black rounded-[30px] border-[5px] md:border-[8px]">
                 <div
-                    style="font-family: 'Pixelify Sans', sans-serif; font-size: 80px; margin-left: 120px; margin-top: -145px;">
-                    Database:</div>
-            </div>
-            <!--This is where you have to put in the amount caught-->
-            <div style="font-family: 'Pixelify Sans', sans-serif; font-size: 80px; margin-left: 610px; margin-top: -105px;"> Caught: x / y</div>
-        </div>
-        <div style="display: flex;">
-            <!--This thing is supposed to be turned into the template for the left side-->
-            <div style="background-color: #E4F4DB; width: 50%; height: 754px; border-bottom-left-radius: 20px; border-right-style: solid; border-right-width: 10px;">
-                <div class="purpleThing"style="background-color: #E53A35; width: 15%; height: 754px; border-bottom-left-radius: 20px; border-right-style: solid; border-width:10px"></div>
-                <!-- Here is where all of the pokemon are supposed to be displayed in a list -->
-                <div class="barsDiv" style="width: 84%; height: 100%; overflow-y: scroll; font-family: 'Pixelify Sans', sans-serif; padding: 10px; box-sizing: border-box; margin-top: -760px; margin-left: 140px;">
-                    <!-- Example Pokémon Row - repeat as needed -->
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">001</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Bulbasaur</div>
+                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[102.2%] lg:w-[101.4%] h-[13%] border-[5px] md:border-[8px] border-black rounded-tr-[30px] z-10 -translate-y-[10%] flex justify-center items-center">
+                    <div class="w-[100%] h-[100%] rounded-tr-[20px] relative flex justify-end bg-[#4DAAFA]">
+                        <div
+                            class="w-1/2 font-pixelifySans text-start text-2xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl flex items-center pl-3">
+                            Caught: SomeX
+                        </div>
+                        <div
+                            class="bg-[#6CCBFB] absolute top-1/2 left-0 -translate-y-1/2 border-black rounded-[20px] w-[50%] h-[120%] border-solid border-[4px] md:border-r-[8px] lg:border-[8px] z-20 flex items-center justify-center">
+                            <div
+                                class="font-pixelifySans text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl h-[90%] flex items-center justify-center pl-6 md:pl-12 lg:pl-8 xl:pl-16">
+                                Database:
+                            </div>
+                        </div>
                     </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">002</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Ivysaur</div>
+                </div>
+                <!--Bottom-->
+                <div
+                    class="absolute bottom-0 left-0 w-full bg-black  h-[90%] rounded-b-[24px] md:rounded-b-[20px] flex border-black border-4px ">
+                    <!--Left-->
+                    <div class="w-1/2 bg-[#FDF494] overflow-y-auto p-2 rounded-bl-[15px] ml-2 mb-2 lg:pt-4 xl:pt-8">
+                        <button v-for="i in 20" :key="i"
+                            class="lg:mr-4 2xl:text-4xl xl:text-3xl lg:text-2xl lg:h-[70px] w-[95%] ml-1 bg-[#E4F4DB] text-xl text-black font-pixelifySans rounded-bl-lg  text-start py-2 mb-2 mt-2 p-2 border-black border-4 ">
+                            <div class="w-100% h-100%">#000 Pokémon Name {{ i }}</div>
+                        </button>
                     </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">???</div>
+                    <!--Right-->
+                    <div class="w-1/2 border-l-8 rounded-b-r-20px border-4px border-black border-solid mb-2 ">
+                        <div class="h-[12%] mt-2 bg-red-400 border-b-8 border-solid border-black flex flex-row align-center items-center font-pixelifySans justify-start">
+                            <div class="text-xl p-1 md:text-2xl md:p-3 lg:text-4xl xl:text-4xl 2xl:text-5xl">#000</div>
+                            <div class="text-xl p-1 md:text-2xl md:p-3 lg:text-4xl xl:text-4xl 2xl:text-5xl">Charmander</div>
+                        </div>
+                        <div class="h-[78%] bg-cover bg-center relative"
+                            style="background-image: url('/public/synthWave.jpg');">
+                            <img src="/public/synthWave.jpg" class="h-full w-full" alt="">
+                            <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                                <img src="/public/4.png" class=" h-[110%] max-h-full max-w-full scale-150" style="image-rendering: pixelated;" alt="">
+                            </div>
+                        </div>
+                        <div
+                            class="h-[10%] bg-pink-400 border-t-8 border-solid border-black flex flex-row align-center items-center font-pixelifySans justify-start rounded-br-[20px]">
+                            <div class="text-xl p-1 md:text-2xl md:p-3 lg:text-4xl xl:text-4xl 2xl:text-5xl">Caught: 80
+                            </div>
+                        </div>
                     </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">???</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
-                    <div class="pokemonRow"
-                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 10px solid black; padding: 10px 0;">
-                        <div class="pokemonNumber" style="font-size: 50px;">003</div>
-                        <div class="pokemonName" style="font-size: 50px; margin-left: 10px;">Venusaur</div>
-                    </div>
+                </div>
 
-                    <!-- Add more rows as needed --></div>
-            </div>
-            <!--This is supposed to be turned into the template for the right side-->
-            <div style="background-color: green; width: 50%; height: 754px; border-bottom-right-radius: 20px; border-left-style: solid; border-right-width: 10px;">
-                <div style="width: 100%; height: 84px; border-width: 10px; border-bottom: solid 10px; background-color: #E53A35; display: flex; justify-content: left; align-items: center; ">
-                    <div class="test1" style="font-size: 50px; margin-left: 10px; font-family: 'Pixelify Sans', sans-serif;">00#</div>
-                    <div class="test10" style="font-size: 50px; font-family: 'Pixelify Sans', sans-serif; margin-left: -100px; display: flex; justify-content: center; align-items: center; width: 100%;">Some Pokemon</div>
+                <!-- Question Thingie Div -->
+                <div
+                    class="absolute top-0 right-0 w-[15%] h-[20%] max-h-[150px] max-w-[150px] -translate-x-[-35%] translate-y-[-22%] z-10 bg-black">
+                    <div class="w-full h-full flex justify-center items-center">
+                        <button class="w-[90%] h-[90%] z-10">
+                            <img src="/public/questionThingie.png" alt="Question Icon"
+                                class="w-full h-full object-cover">
+                        </button>
+                    </div>
                 </div>
-                <div style="width: 100%; height: 566px; background-color: pink; position: relative;">
-                    <img class="variable2Img" style="width: 100%; height: 568px; position: absolute; top: 0; left: 0; z-index: 1;"src="/public/synthWave.jpg" alt="">
-                    <img class="variableImg" style="width: 900px; height: 900px; position: absolute; top: 50%; left: 50%; z-index: 2; transform: translate(-50%, -50%); image-rendering: pixelated; filter: drop-shadow(10px 10px 10px #FFEDEE);" src="/public/4.png" alt="Centered image">                </div>
-                <div style="width: 100%; height: 84px; border-top-width: 10px; border-top-style: solid; background-color: #E53A35; border-bottom-right-radius: 20px ">
-                    <div class="test10" style="font-size: 50px; font-family: 'Pixelify Sans', sans-serif; margin-left: 10px; margin-top: 10px; display: flex; justify-content: left; align-items: center; width: 100%;"> Caught: Some Number</div>
-                </div>
+
+                <!-- Backwards Orb Div -->
+                <button
+                    class="absolute top-0 left-0 w-[25%] h-[25%] max-h-[300px] max-w-[300px] -translate-x-[40%] -translate-y-[30%] z-20">
+                    <img src="/public/backwardsOrb.png" alt="Return Back" class="w-full h-full object-cover">
+                </button>
             </div>
         </div>
     </div>
 </template>
+
 <style>
-::-webkit-scrollbar { width: 20px; height: 20px; }
-::-webkit-scrollbar-track {background: #1e1e1e; border: 1px solid #333; }
-::-webkit-scrollbar-thumb {background-image: linear-gradient(90deg, #ffcc00 25%, #ff9900 25%, #ff9900 50%, #ffcc00 50%, #ffcc00 75%, #ff9900 75%); background-size: 20px 20px; border: 2px solid #000; }
-::-webkit-scrollbar-thumb:hover {background-image: linear-gradient(90deg, #ff6600 25%, #cc3300 25%, #cc3300 50%, #ff6600 50%, #ff6600 75%, #cc3300 75%);}
-::-webkit-scrollbar-corner {background: #1e1e1e;}
+::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border: 1px solid #333;
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(90deg, #ffcc00 25%, #ff9900 25%, #ff9900 50%, #ffcc00 50%, #ffcc00 75%, #ff9900 75%);
+    background-size: 20px 20px;
+    border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(90deg, #ff6600 25%, #cc3300 25%, #cc3300 50%, #ff6600 50%, #ff6600 75%, #cc3300 75%);
+}
+
+::-webkit-scrollbar-corner {
+    background: #1e1e1e;
+}
 </style>
