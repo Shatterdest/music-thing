@@ -24,7 +24,7 @@ P.S. We do not own any rights to Pokémon or associated products. This is an edu
     </div>
 </template>
 
-<style>
+<style scoped>
 .returntomainBtn {
     background-color: #B8D0F8;
     width: 860px;

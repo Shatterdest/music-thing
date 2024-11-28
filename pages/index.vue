@@ -6,11 +6,11 @@
             </div>
             <div class="mainButtonsDiv">
                 <div class="leftsidebuttonsDiv">
-                    <div style="font-size: 80px; width: 400px;height: 75px;font-family: 'Pixelify Sans', sans-serif;text-align: center;margin-top: 80px;">Old Timer?</div>
+                    <div class="oldPlayer">Old Timer?</div>
                     <LoginButton/>
                 </div>
                 <div class="rightsidebuttonsDiv">
-                    <div style="font-size: 80px; width: 500px;height: 75px;font-family: 'Pixelify Sans', sans-serif;text-align: center;margin-top: -25px;">New Player?</div>
+                    <div class="newPlayer">New Player?</div>
                     <div class="flex gap-[20px] width 300 bottomButtons">
                         <SignUpButton class="w-auto"/>                        
                         <AboutUsButton class="w-auto" style="width: 400px; margin-top: 20px;"/>
@@ -29,9 +29,30 @@ onMounted(() => {
 });
 </script>
 
-<style>
-.bottomButtons {
-  display: flex;
+
+
+<style scoped>
+.oldPlayer {
+    font-size: 80px; 
+width: 400px;
+height: 75px;
+font-family: 'Pixelify Sans', sans-serif;   
+text-align: center;
+margin-top: 80px;
+
+}
+
+.newPlayer {
+    font-size: 80px; 
+width: 500px;
+height: 75px;
+font-family: 'Pixelify Sans', sans-serif;
+text-align: center;
+margin-top: -25px;
+}
+
+.bottomButtons{
+    display: flex;
 }
 .background {
   margin: 0;

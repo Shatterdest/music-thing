@@ -77,6 +77,7 @@ export function useAuth() {
     userStore.displayName = user.displayName
     userStore.token = user.accessToken
     userStore.refreshToken = user.refreshToken
+    userStore.expiration =  Date.now() + user.expiration * 1000
   }
 
   return {
