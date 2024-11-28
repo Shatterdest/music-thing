@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase/auth';
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-
+import type { PokemonObject } from '@/types/PokemonObject';
 
 export const useUserStore = defineStore("userStore", () => {
 
