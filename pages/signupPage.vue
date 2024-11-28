@@ -3,7 +3,7 @@
         class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden justify-center">
         <div class="w-[95vw] h-[95vh]  flex flex-col">
             <!-- Top Section: Logo and SignUp -->
-            <div class="flex flex-1">
+            <div class="flex flex-1 mt-4">
                 <!-- Logo Div -->
                 <div class="w-1/2  flex items-center justify-center">
                     <img src="/public/bgExtract.png" alt="Logo" class="w-full h-auto object-contain">

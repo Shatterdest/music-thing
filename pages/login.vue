@@ -1,7 +1,7 @@
 <template>
     <div
         class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden justify-center">
-        <div class="w-[95vw] h-[95vh]  flex flex-col">
+        <div class="w-[95vw] h-[95vh] mt-4 flex flex-col">
             <!-- Top Section: Logo and Login -->
             <div class="flex flex-1">
                 <!-- Logo Div -->
@@ -51,3 +51,15 @@
         </div>
     </div>
 </template>
+
+<style>
+.background {
+    background-image: url('/public/repeatBG.png');
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position: top left;
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+</style>

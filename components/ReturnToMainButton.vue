@@ -1,7 +1,7 @@
 <template>
-  <div class="rounded-[25px] w-[55%] h-[95px] border-[5px] border-solid border-black bg-[#B8D0F8] lg:max-w-[40] m-2 flex justify-center items-center " @click="onClick">
+  <button class="rounded-[25px] w-[55%] h-[95px] border-[5px] border-solid border-black bg-[#B8D0F8] lg:max-w-[40] m-2 flex justify-center items-center " @click="onClick">
     <div class="font-pixelifySans text-center text-5xl ">{{ text }}</div>
-  </div>
+  </button>
 </template>
   
 <script>
