@@ -3,6 +3,12 @@ export default {
   content: ["./components/**/*.{js,vue,ts}", "./layouts/**/*.vue", "./pages/**/*.vue", "./plugins/**/*.{js,ts}", "./app.vue", "./error.vue"],
   theme: {
     extend: {
+      fontFamily: {
+        pixelifySans: ["Pixelify Sans", "sans-serif"],
+      },
+      colors: {
+        'creamy-white': '#FFEFEF',
+      },
       keyframes: {
         fall: {
           "0%": { transform: "translateY(0%)" },
@@ -13,6 +19,7 @@ export default {
         fall: "fall 1.2s linear infinite"
       }
     }
-  },
-  plugins: []
-};
+    },  
+    plugins: []
+  }
+

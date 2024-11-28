@@ -1,11 +1,27 @@
-<template><nuxt-link to="/">
-    <button class="returntomainBtn">
-      Return to Main Menu
-    </button></nuxt-link>
-  </template>
+<template>
+  <nuxt-link to="/">
+    <button class="rounded-[25px] w-[55%] h-[95px] border-[5px] border-solid border-black bg-[#B8D0F8] lg:max-w-[40] m-2 flex justify-center items-center " @click="onClick">
+      <div class="font-pixelifySans text-center text-5xl ">{{ text }}</div>
+    </button>
+  </nuxt-link>
+</template>
   
-  <script setup>
-  </script>
+<script>
+export default {
+  props: {
+    text: {
+      type: String,
+      default: "Return to Main Page",
+    },
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
+    },
+  },
+};
+</script>
+  
   
   <style scoped>
   .returntomainBtn {

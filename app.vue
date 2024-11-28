@@ -1,5 +1,4 @@
 <template>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
   <div>
     <NuxtPage />
   </div>
