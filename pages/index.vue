@@ -27,11 +27,11 @@
         </div>
         <div class="absolute top-0 left-0 w-screen h-screen">
             <img :style="{ transform: `translateX(${position1}px)` }" src="../public/bgExtractBird.png" alt="Pokemon1"
-                class="pokemon w-[30vh] absolute bottom-[40vh]" />
+                class="pokemon w-[35vh] absolute bottom-[40vh]" />
             <img :style="{ transform: `translateX(${position2}px)` }" src="../public/bgExtractBird.png" alt="Pokemon2"
-                class="pokemon w-[30vh] absolute bottom-[35vh]" />
+                class="pokemon w-[35vh] absolute bottom-[40vh]" />
             <img :style="{ transform: `translateX(${position3}px)` }" src="../public/bgExtractBird.png" alt="Pokemon3"
-                class="pokemon w-[30vh] absolute bottom-[30vh]" />
+                class="pokemon w-[35vh] absolute bottom-[40vh]" />
         </div>
     </div>
 </template>
@@ -42,8 +42,8 @@ export default {
     data() {
         return {
             position1: 0, // Position for Pokémon 1
-            position2: -400, // Initial offset for Pokémon 2
-            position3: -800, // Initial offset for Pokémon 3
+            position2: 800, // Initial offset for Pokémon 2
+            position3: 1600, // Initial offset for Pokémon 3
             velocity: 8, // Speed of the sliding animation
         };
     },
