@@ -3,7 +3,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  type User,
 } from "firebase/auth";
 import { useFirebaseServices } from "../utils/firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -73,6 +72,7 @@ export function useAuth() {
     }
   };
   const storePinia = (user: any) => {
+    userStore.uid = user.uid
     userStore.email = user.email
     userStore.displayName = user.displayName
     userStore.token = user.accessToken
