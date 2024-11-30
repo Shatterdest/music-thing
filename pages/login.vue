@@ -4,7 +4,6 @@ import { ref } from "vue";
 import { useAuth } from "../composables/firebaseAuth";
 
 const { login, error } = useAuth();
-
 const email = ref("");
 const password = ref("");
 </script>
