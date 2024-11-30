@@ -29,30 +29,27 @@ onMounted(() => {
 });
 </script>
 
-
-
 <style scoped>
 .oldPlayer {
-    font-size: 80px; 
-width: 400px;
-height: 75px;
-font-family: 'Pixelify Sans', sans-serif;   
-text-align: center;
-margin-top: 80px;
-
+  font-size: 80px;
+  width: 400px;
+  height: 75px;
+  font-family: "Pixelify Sans", sans-serif;
+  text-align: center;
+  margin-top: 80px;
 }
 
 .newPlayer {
-    font-size: 80px; 
-width: 500px;
-height: 75px;
-font-family: 'Pixelify Sans', sans-serif;
-text-align: center;
-margin-top: -25px;
+  font-size: 80px;
+  width: 500px;
+  height: 75px;
+  font-family: "Pixelify Sans", sans-serif;
+  text-align: center;
+  margin-top: -25px;
 }
 
-.bottomButtons{
-    display: flex;
+.bottomButtons {
+  display: flex;
 }
 .background {
   margin: 0;
