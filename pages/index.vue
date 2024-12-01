@@ -1,4 +1,3 @@
-
 <template>
     <div class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden">
         <div>
@@ -6,19 +5,19 @@
                 <img src="../public/bgExtractLogo.png" alt="" class="w-[70vh]" />
             </div>
             <div class="h-[35vh] flex-col lg:flex-row lg:justify-center lg:items-center lg:flex ">
-                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start ">
+                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start relative z-10">
                     <div class=" w-[50%] h-18 mt-2 lg:w-full h-18 flex items-center">
                         <div class="font-pixelifySans text-start text-5xl mt-1">Old Player?</div>
                     </div>
                     <LoginButton class="w-[40%] lg:w-full lg:mt-1" />
                 </div>
-                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start ">
+                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start relative z-10">
                     <div class=" w-[50%] h-18 mt-2 lg:w-full h-18 flex items-center">
                         <div class="font-pixelifySans text-start text-5xl mt-1">New Player?</div>
                     </div>
                     <SignUpButton class="w-[40%] lg:w-full lg:mt-1"/>
                 </div>
-                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start ">
+                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start relative z-10">
                     <div class=" w-[50%] h-18 mt-2 lg:w-full h-18 flex items-center">
                         <div class="font-pixelifySans text-start text-5xl mt-1">Who Are We?</div>
                     </div>
@@ -36,7 +35,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
 export default {
@@ -90,4 +88,10 @@ export default {
     width: 100%;
     overflow-x: hidden;
 }
-</style> 
+
+/* Ensure all buttons are above other elements */
+.z-10 {
+    z-index: 10;
+    position: relative; /* Ensure proper stacking context */
+}
+</style>
