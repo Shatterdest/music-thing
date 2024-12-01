@@ -14,6 +14,7 @@ export const useUserStore = defineStore("userStore", () => {
     const refreshToken = ref('')  
     const expiration = ref(0)
     const pokemon = ref<(PokemonObject)[]>([]);
+    const allPokemon = ref<(PokemonObject)[]>([]);
 
     function $reset() {
         email.value = ''
@@ -63,5 +64,5 @@ export const useUserStore = defineStore("userStore", () => {
     }
 
 
-    return { uid, email, displayName, token, refreshToken, pokemon, expiration, fetchToken, saveData, fetchData, $reset }
+    return { uid, email, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, $reset }
 });
