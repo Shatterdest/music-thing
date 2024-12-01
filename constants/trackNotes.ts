@@ -1,5 +1,5 @@
-const leftNotes = ref([`animate-delay-200`, `animate-delay-300`, `animate-delay-500`, `animate-delay-700`]);
+const testNotes = ref([{ val: "ml-2" }, { val: "ml-10" }]);
 
 const rightNotes = ref([1.5, 2.5, 3]);
 
-export { leftNotes, rightNotes };
+export { testNotes, rightNotes };

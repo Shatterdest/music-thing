@@ -5,10 +5,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        pixelifySans: ["Pixelify Sans", "sans-serif"],
+        pixelifySans: ["Pixelify Sans", "sans-serif"]
       },
       colors: {
-        'creamy-white': '#FFEFEF',
+        "creamy-white": "#FFEFEF"
       },
       keyframes: {
         fall: {
@@ -17,7 +17,7 @@ export default {
         }
       },
       animation: {
-        fall: "fall 1.2s linear infinite"
+        fall: "fall 1.2s linear"
       }
     }
   },
