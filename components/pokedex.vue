@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-center h-screen w-screen">
-        <div class="flex justify-center items-center w-[98vw] h-[98vh]">
+        <div v-if="showPokedex" class="flex justify-center items-center w-[98vw] h-[98vh]">
             <div
                 class="relative w-full max-w-[88%] max-h-[90%] aspect-[4/3] border-black rounded-[30px] border-[5px] md:border-[8px]">
                 <div
@@ -71,7 +71,7 @@
                 </div>
 
                 <!-- Backwards Orb Div -->
-                <button
+                <button @click="togglePokedex"
                     class="absolute top-0 left-0 w-[25%] h-[25%] max-h-[300px] max-w-[300px] -translate-x-[40%] -translate-y-[30%] z-20">
                     <img src="/public/backwardsOrb.png" alt="Return Back" class="w-full h-full object-cover">
                 </button>
@@ -84,6 +84,7 @@
 export default {
     data() {
         return {
+            showPokedex: true, // Controls visibility of Pokedex
             pokemons: [], // List of Pokémon
             selectedPokemon: { id: 0, name: '', image: '', types: [] }, // Selected Pokémon details
             selectedPokemonId: null, // ID of the selected Pokémon
@@ -93,7 +94,9 @@ export default {
         await this.fetchPokemonData(); // Fetch Pokémon data when component is mounted
     },
     methods: {
-
+        togglePokedex() {
+            this.showPokedex = !this.showPokedex; // Toggle the visibility of the Pokedex
+        },
         async fetchPokemonData() {
             try {
                 const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
@@ -145,68 +148,22 @@ export default {
                 grass: '#78C850',
                 electric: '#F8D030',
                 psychic: '#F85888',
-                ice: '#98D8D8',
-                dragon: '#7038F8',
-                dark: '#705848',
-                fairy: '#EE99AC',
-                normal: '#A8A878',
                 bug: '#A8B820',
-                poison: '#A040A0',
-                ground: '#E0C068',
-                flying: '#A890F0',
-                fighting: '#C03028',
-                steel: '#B8B8D0',
-                ghost: '#705898',
                 rock: '#B8A038',
-                unknown: '#68A090',
-            };
-
-            // Default to normal type if no match
-            const baseColor = typeColors[type] || '#A8A878';
-
-            // Create a lighter shade (reduce intensity)
-            return this.lightenColor(baseColor, 40);
-        },
-        lightenColor(color, percent) {
-            const num = parseInt(color.slice(1), 16);
-            const r = (num >> 16) + percent;
-            const g = ((num >> 8) & 0x00ff) + percent;
-            const b = (num & 0x0000ff) + percent;
-
-            return (
-                '#' +
-                (0x1000000 + (r < 255 ? r : 255) * 0x10000 + (g < 255 ? g : 255) * 0x100 + (b < 255 ? b : 255))
-                    .toString(16)
-                    .slice(1)
-            );
-        },
-    },
-    computed: {
-        selectedPokemonTypeColor() {
-            const typeColors = {
-                fire: '#F08030',
-                water: '#6890F0',
-                grass: '#78C850',
-                electric: '#F8D030',
-                psychic: '#F85888',
-                ice: '#98D8D8',
-                dragon: '#7038F8',
+                ghost: '#705898',
                 dark: '#705848',
+                dragon: '#7038F8',
+                ice: '#98D8D8',
                 fairy: '#EE99AC',
-                normal: '#A8A878',
-                bug: '#A8B820',
                 poison: '#A040A0',
-                ground: '#E0C068',
-                flying: '#A890F0',
                 fighting: '#C03028',
+                ground: '#E0C068',
                 steel: '#B8B8D0',
-                ghost: '#705898',
-                rock: '#B8A038',
-                unknown: '#68A090',
+                normal: '#A8A878',
             };
-            return typeColors[this.selectedPokemon.types[0]] || '#A8A878'; // Default color if type not found
-        },
-    },
+            return typeColors[type] || '#A8A878'; // Return color for the Pokémon type
+        }
+    }
 };
 </script>
 
