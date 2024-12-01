@@ -1,6 +1,5 @@
 
 <template>
-    <Pokedex></Pokedex>
     <div class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden">
         <div>
             <div class="w-screen h-[65vh] flex items-end justify-center relative">
