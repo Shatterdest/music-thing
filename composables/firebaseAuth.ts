@@ -8,7 +8,7 @@ import { useFirebaseServices } from "../utils/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 export function useAuth() {
-  
+  const router = useRouter()
   const { auth, db } = useFirebaseServices();
   const user = ref();
   const error = ref<string | null>(null);
@@ -26,6 +26,7 @@ export function useAuth() {
       if (userCredential.user) {
         await storeUser(userCredential.user.uid);
         storePinia(userCredential.user)
+        router.push('/overworld')
       }
     } catch (err: any) {
       error.value = err.message;
@@ -41,6 +42,8 @@ export function useAuth() {
       );
       user.value = userCredential.user;
       storePinia(userCredential.user)
+      userStore.fetchData()
+      router.push('/overworld')
       error.value = null;
 
     } catch (err: any) {
@@ -53,7 +56,9 @@ export function useAuth() {
       await signOut(auth);
       user.value = null;
       error.value = null;
+      userStore.saveData()
       userStore.$reset()
+      router.push('/login')
     } catch (err: any) {
       error.value = err.message;
     }

@@ -1,4 +1,5 @@
 <template>
+  <button @click="logout">LOGOUT</button>
   <div id="canvas">
     <canvas ref="canvas"></canvas>
   </div>
@@ -7,9 +8,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { map } from "../assets/data/map.ts";
+import { useAuth } from "@/composables/firebaseAuth";
 
 const canvas = ref(null);
-const mapScale = 3
+const mapScale = 3;
+const { logout } = useAuth();
 console.log(map);
 onMounted(() => {
   if (canvas.value && canvas.value.getContext) {
@@ -60,13 +63,13 @@ onMounted(() => {
     class Boundary {
       constructor({ position }) {
         this.position = position;
-        this.width = 16*mapScale;
-        this.height = 15*mapScale;
+        this.width = 16 * mapScale;
+        this.height = 15 * mapScale;
       }
     }
 
-    const OFFSET_X = 280*mapScale;
-    const OFFSET_Y = 420*mapScale;
+    const OFFSET_X = 280 * mapScale;
+    const OFFSET_Y = 420 * mapScale;
 
     const background = new Sprite({
       position: { x: -OFFSET_X, y: -OFFSET_Y },
@@ -93,7 +96,7 @@ onMounted(() => {
     });
 
     const boundaries = [];
-    const tileSize = 16*mapScale;
+    const tileSize = 16 * mapScale;
 
     map.forEach((row, i) => {
       row.forEach((tile, j) => {
@@ -101,8 +104,8 @@ onMounted(() => {
           boundaries.push(
             new Boundary({
               position: {
-                x: ((j * tileSize) - (OFFSET_X - (mapScale*60))),
-                y: ((i * tileSize) - (OFFSET_Y - (mapScale*80)))
+                x: j * tileSize - (OFFSET_X - mapScale * 60),
+                y: i * tileSize - (OFFSET_Y - mapScale * 80)
               }
             })
           );
@@ -182,8 +185,8 @@ onMounted(() => {
       const movementOffsets = {
         up: { x: 0, y: -speed * deltaTime },
         down: { x: 0, y: speed * deltaTime },
-        left: { x: -speed * deltaTime, y:0 },
-        right: { x: speed * deltaTime, y:0 }
+        left: { x: -speed * deltaTime, y: 0 },
+        right: { x: speed * deltaTime, y: 0 }
       };
 
       if (lastKeyPressed && keys[lastKeyPressed]) {
@@ -213,7 +216,6 @@ onMounted(() => {
         }
       }
     }
-
 
     animate(0);
   } else {
