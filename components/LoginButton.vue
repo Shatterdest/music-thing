@@ -1,6 +1,6 @@
 <template>
     <nuxt-link to="login">
-      <div class="rounded-[25px] border-[5px] border-solid border-black h-[18] bg-creamy-white lg:max-w-[40]" @click="onClick">
+      <div class="rounded-[25px] w-[100%] border-[5px] border-solid border-black h-[18] bg-creamy-white" @click="onClick">
         <div class="font-pixelifySans text-center text-5xl mt-1 mb-2 ml-2 mr-2">{{ computedText }}</div>
       </div>
     </nuxt-link>

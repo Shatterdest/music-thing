@@ -47,8 +47,8 @@ const password = ref("");
                         <div class=" flex items-center mt-4 mb-4 w-[90%]">
                             <div class=" font-pixelifySans text-[35px] w-[60%]">Don’t Have an Account?</div>
                             <nuxt-link to="/signup">
-                            <button class="w-[40%] rounded-[25px] border-[5px] border-solid border-black bg-white font-pixelifySans text-[40px] p">SignUp</button>
-                        </nuxt-link>
+                                <button class="w-[100%] rounded-[25px] m-2 border-[5px] border-solid border-black bg-white font-pixelifySans text-[40px] p">SignUp</button>
+                            </nuxt-link>
                         </div>
                     </div>
                 </div>

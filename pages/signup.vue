@@ -9,8 +9,7 @@ const password = ref("");
 </script>
 
 <template>
-    <div>
-        class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden justify-center">
+    <div class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden justify-center">
         <div class="w-[95vw] h-[95vh]  flex flex-col">
             <!-- Top Section: Logo and SignUp -->
             <div class="flex flex-1 mt-4">
@@ -46,8 +45,8 @@ const password = ref("");
                         <div class=" flex items-center mt-4 mb-4 w-[90%]">
                             <div class=" font-pixelifySans text-[35px] w-[60%]">Already Have an Account?</div>
                             <nuxt-link to="/login">
-                            <button class="w-[40%] rounded-[25px] border-[5px] border-solid border-black bg-white font-pixelifySans text-[40px] p">Log In</button>
-                        </nuxt-link>
+                            <button class="w-[100%] m-2 rounded-[25px] border-[5px] border-solid border-black bg-white font-pixelifySans text-[40px]" >Log In</button>
+                            </nuxt-link>
                         </div>
                     </div>
                 </div>
