@@ -41,43 +41,38 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      position1: 0, // Position for Pokémon 1
-      position2: 800, // Initial offset for Pokémon 2
-      position3: 1600, // Initial offset for Pokémon 3
-      velocity: 8 // Speed of the sliding animation
-    };
-  },
-  methods: {
-    slidePokemon() {
-      const screenWidth = window.innerWidth;
-      const pokemonWidth = 50 * (screenWidth / 100);
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-      // Update positions for each Pokémon
-      this.position1 -= this.velocity;
-      this.position2 -= this.velocity;
-      this.position3 -= this.velocity;
+// Reactive variables for Pokémon positions and animation settings
+const position1 = ref(0);
+const position2 = ref(800);
+const position3 = ref(1600);
+const velocity = 8; // Speed of the sliding animation
 
-      // Reset positions when off-screen
-      if (this.position1 < -pokemonWidth) this.position1 = screenWidth;
-      if (this.position2 < -pokemonWidth) this.position2 = screenWidth;
-      if (this.position3 < -pokemonWidth) this.position3 = screenWidth;
-    }
-  },
-  mounted() {
-    this.interval = setInterval(this.slidePokemon, 14); // Start the sliding animation
-  },
-  beforeDestroy() {
-    clearInterval(this.interval); // Clear interval on component destruction
-  }
+// Function to animate Pokémon sliding
+const slidePokemon = () => {
+  const screenWidth = window.innerWidth;
+  const pokemonWidth = 50 * (screenWidth / 100);
+
+  // Update positions for each Pokémon
+  position1.value -= velocity;
+  position2.value -= velocity;
+  position3.value -= velocity;
+
+  // Reset positions when off-screen
+  if (position1.value < -pokemonWidth) position1.value = screenWidth;
+  if (position2.value < -pokemonWidth) position2.value = screenWidth;
+  if (position3.value < -pokemonWidth) position3.value = screenWidth;
 };
 
-let interval;
+let interval; // Variable to hold the interval ID
+
+// Lifecycle hooks
 onMounted(() => {
-  userStore.fetchAllPokemon()
+  const userStore = useUserStore();
+  userStore.fetchAllPokemon(); // Call your store action if needed
+
   interval = setInterval(slidePokemon, 14); // Start the sliding animation
 });
 
@@ -85,6 +80,7 @@ onBeforeUnmount(() => {
   clearInterval(interval); // Clear interval on component destruction
 });
 </script>
+
 
 <style scoped>
 .pokemon {
