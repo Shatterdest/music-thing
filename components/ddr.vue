@@ -29,46 +29,79 @@
         </div>
       </div>
     </div>
+    <audio controls id="audio"><source src="../public/RedBattle.mp3" type="audio/mp3" /></audio>
   </div>
 </template>
 
 <script setup lang="js">
-const leftNotes = ref([{ val: "[animation-delay:_0.5s]" }, { val: "[animation-delay:_1s]" }]);
+//repeat occurs at 13s
 
-const downNotes = ref([{ val: "[animation-delay:_0.75s]" }, { val: "[animation-delay:_1.5s]" }, { val: "[animation-delay:_0.9s]" }]);
+const leftNotes = ref([
+  { val: "[animation-delay:_1.8s]" },
+  { val: "[animation-delay:_3.3s]" },
+  { val: "[animation-delay:_6.5s]" },
+  { val: "[animation-delay:_10.1s]" },
+  { val: "[animation-delay:_13.1s]" },
+  { val: "[animation-delay:_15.3s]" }
+]);
 
-const upNotes = ref([{ val: "[animation-delay:_0.75s]" }, { val: "[animation-delay:_1.5s]" }, { val: "[animation-delay:_0.9s]" }]);
+const downNotes = ref([
+  { val: "[animation-delay:_2.3s]" },
+  { val: "[animation-delay:_4.9s]" },
+  { val: "[animation-delay:_7.5s]" },
+  { val: "[animation-delay:_10.1s]" },
+  { val: "[animation-delay:_11.4s]" },
+  { val: "[animation-delay:_12.5s]" }
+]);
 
-const rightNotes = ref([{ val: "[animation-delay:_0.75s]" }, { val: "[animation-delay:_1.5s]" }, { val: "[animation-delay:_0.9s]" }]);
+const upNotes = ref([
+  { val: "[animation-delay:_2.8s]" },
+  { val: "[animation-delay:_5.4s]" },
+  { val: "[animation-delay:_8.5s]" },
+  { val: "[animation-delay:_11.7s]" },
+  { val: "[animation-delay:_12.7s]" },
+  { val: "[animation-delay:_14.1s]" }
+]);
+
+const rightNotes = ref([
+  { val: "[animation-delay:_5.7s]" },
+  { val: "[animation-delay:_7.5s]" },
+  { val: "[animation-delay:_8.5s]" },
+  { val: "[animation-delay:_14.5s]" },
+  { val: "[animation-delay:_15.68s]" },
+  { val: "[animation-delay:_16.5s]" }
+]);
 
 onMounted(() => {});
 
 onNuxtReady(async () => {
-  //The bottom function may not be necessary
-  /*   function testFall() {
-    const still = ref(document.getElementById("staticArrow").getBoundingClientRect().top.toFixed(0));
-    const fall = ref(document.getElementById("dynamicArrow").getBoundingClientRect().top.toFixed(0));
-    if (fall.value == still.value) {
-      //console.log(`Hit. ${fall.value}`);
-    }
-    requestAnimationFrame(testFall);
+  async function playAudio() {
+    document.getElementById("audio").play();
+    console.log("Hello");
   }
+  playAudio();
 
-  requestAnimationFrame(testFall); */
+  let score = ref(0);
+
+  window.addEventListener("animationend", (e) => {
+    document
+      .getElementById(e.srcElement.attributes[0].value.replace("Arrow", "").trim())
+      .removeChild(document.getElementById(e.srcElement.attributes[0].value.replace("Arrow", "").trim()).firstElementChild);
+  });
 
   window.addEventListener("keydown", (e) => {
-    if (e.key == "ArrowLeft" && !e.repeat) {
-      const moveArrow = ref(document.getElementById("downArrow").getBoundingClientRect().top.toFixed(0));
+    if ((e.key == "ArrowLeft" || "ArrowDown" || "ArrowUp" || "ArrowRight") && !e.repeat) {
       const targetArrow = ref(document.getElementById("LstaticArrow").getBoundingClientRect().top.toFixed(0));
 
-      const trackLeft = ref(document.getElementById("left").firstElementChild.getBoundingClientRect().top.toFixed(0));
-
-      if (trackLeft.value >= targetArrow.value - 26) {
+      const track = ref(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild.getBoundingClientRect().top.toFixed(0));
+      if (track.value >= targetArrow.value - 36) {
         console.log("Hit.");
-        document.getElementById("left").removeChild(document.getElementById("left").firstElementChild);
+        document.getElementById(e.key.slice(5).toLowerCase()).removeChild(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild);
+        score++;
+        console.log(score.value);
       } else {
-        console.log(trackLeft.value);
         console.log(targetArrow.value);
+        console.log(track.value);
       }
     }
   });
