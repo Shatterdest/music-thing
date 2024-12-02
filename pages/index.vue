@@ -38,10 +38,8 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import getPokemon from "@/utils/fetch"
 
 const userStore = useUserStore()
-
 const position1 = ref(0); // Position for Pokémon 1
 const position2 = ref(800); // Initial offset for Pokémon 2
 const position3 = ref(1600); // Initial offset for Pokémon 3
@@ -63,9 +61,9 @@ const slidePokemon = () => {
 };
 
 let interval;
-onMounted(async () => {
+onMounted(() => {
+  userStore.fetchAllPokemon()
   interval = setInterval(slidePokemon, 14); // Start the sliding animation
-  userStore.allPokemon.value = await getPokemon()
 });
 
 onBeforeUnmount(() => {
