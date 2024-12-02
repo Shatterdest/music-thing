@@ -1,18 +1,18 @@
 <template>
   <!-- Logout Button -->
   <nuxt-link to="login">
-    <div class="logout-button rounded-[25px] w-[200px] border-[5px] border-solid border-black h-[18] bg-white" @click="logout">
-      <div class="font-pixelifySans text-center text-5xl mt-1 mb-2 ml-2 mr-2">LOGOUT</div>
+    <div class="logout-button h-[18] w-[200px] rounded-[25px] border-[5px] border-solid border-black bg-white" @click="logout">
+      <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">LOGOUT</div>
     </div>
   </nuxt-link>
 
   <!-- New Button with Image -->
-  <div class="image-button bg-white rounded-[25px] border-[5px] border-solid border-black" @click="togglePokedex">
+  <div class="image-button rounded-[25px] border-[5px] border-solid border-black bg-white" @click="togglePokedex">
     <img src="/public/pokedexIcon.jpg" alt="Pokedex Icon" class="pokedex-icon p-2" />
   </div>
 
   <!-- Pokedex Component -->
-  <div v-if="showPokedex" >
+  <div v-if="showPokedex">
     <div class="pokedex-overlay">
       <Pokedex />
     </div>
@@ -23,7 +23,6 @@
     <canvas ref="canvas"></canvas>
   </div>
 </template>
-
 
 <script setup>
 import { ref, onMounted } from "vue";
