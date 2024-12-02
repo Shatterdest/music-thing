@@ -39,10 +39,10 @@ const canvas = ref(null);
 const mapScale = 3;
 const { logout } = useAuth();
 const pokedexStore = usePokedexStore(); // Use the Pokedex store
-const userStore = useUserStore()
+const userStore = useUserStore();
 console.log(map);
 const showPokedex = computed(() => pokedexStore.showPokedex);
-const showDDR = ref(false)
+const showDDR = ref(false);
 const intervalId = ref(null);
 
 // Toggle Pokedex visibility
@@ -54,22 +54,21 @@ onMounted(() => {
   userStore.fetchAllPokemon();
   intervalId.value = setInterval(async () => {
     const random = Math.random();
-    console.log(random)
+    console.log(random);
     if (random < 0.1) {
-      console.log(random)
-        if (showDDR.value === true || showPokedex === true) {
-          // too lazy to clean up
-        } else {
-        showDDR.value = true
-        console.log('waiting 20s')
-        await wait(20)
-        console.log('waited')
-        userStore.addPokemon()
-        showDDR.value = false
-
+      console.log(random);
+      if (showDDR.value == true || pokedexStore.showPokedex == true) {
+        // too lazy to clean up
+      } else {
+        showDDR.value = true;
+        console.log("waiting 20s");
+        await wait(20);
+        console.log("waited");
+        userStore.addPokemon();
+        showDDR.value = false;
       }
     }
-  },1000)
+  }, 1000);
 
   if (canvas.value && canvas.value.getContext) {
     const ctx = canvas.value.getContext("2d");
@@ -280,15 +279,13 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-    clearInterval(intervalId.value);
-    console.log('Interval stopped');
+  clearInterval(intervalId.value);
+  console.log("Interval stopped");
 });
 
 function wait(seconds) {
-    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
-
-
 </script>
 <style>
 html,
