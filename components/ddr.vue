@@ -37,40 +37,36 @@
 //repeat occurs at 13s
 
 const leftNotes = ref([
-  { val: "[animation-delay:_1.8s]" },
-  { val: "[animation-delay:_3.3s]" },
-  { val: "[animation-delay:_6.5s]" },
-  { val: "[animation-delay:_10.1s]" },
-  { val: "[animation-delay:_13.1s]" },
-  { val: "[animation-delay:_15.3s]" }
+  { val: "[animation-delay:_4.8s]" },
+  { val: "[animation-delay:_6.1s]" },
+  { val: "[animation-delay:_7.4s]" },
+  { val: "[animation-delay:_12.5s]" },
+  { val: "[animation-delay:_16.08s]" }
 ]);
 
 const downNotes = ref([
-  { val: "[animation-delay:_2.3s]" },
-  { val: "[animation-delay:_4.9s]" },
-  { val: "[animation-delay:_7.5s]" },
-  { val: "[animation-delay:_10.1s]" },
-  { val: "[animation-delay:_11.4s]" },
-  { val: "[animation-delay:_12.5s]" }
+  { val: "[animation-delay:_2.2s]" },
+  { val: "[animation-delay:_9.8s]" },
+  { val: "[animation-delay:_12.1s]" },
+  { val: "[animation-delay:_13.1s]" },
+  { val: "[animation-delay:_14.5s]" }
 ]);
 
 const upNotes = ref([
-  { val: "[animation-delay:_2.8s]" },
-  { val: "[animation-delay:_5.4s]" },
-  { val: "[animation-delay:_8.5s]" },
-  { val: "[animation-delay:_11.7s]" },
-  { val: "[animation-delay:_12.7s]" },
-  { val: "[animation-delay:_14.1s]" }
+  { val: "[animation-delay:_2.7s]" },
+  { val: "[animation-delay:_6.9s]" },
+  { val: "[animation-delay:_7.9s]" },
+  { val: "[animation-delay:_10s]" },
+  { val: "[animation-delay:_13.5s]" }
 ]);
 
-const rightNotes = ref([
-  { val: "[animation-delay:_5.7s]" },
-  { val: "[animation-delay:_7.5s]" },
-  { val: "[animation-delay:_8.5s]" },
-  { val: "[animation-delay:_14.5s]" },
-  { val: "[animation-delay:_15.68s]" },
-  { val: "[animation-delay:_16.5s]" }
-]);
+const rightNotes = ref(  [
+    { "val": "[animation-delay:_3.7s]" },
+    { "val": "[animation-delay:_10.5s]" },
+    { "val": "[animation-delay:_11.3s]" },
+    { "val": "[animation-delay:_15.7s]" },
+    { "val": "[animation-delay:_16.9s]" }
+  ]);
 
 onMounted(() => {});
 
