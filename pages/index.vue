@@ -65,7 +65,7 @@ const slidePokemon = () => {
 let interval;
 onMounted(async () => {
   interval = setInterval(slidePokemon, 14); // Start the sliding animation
-  getPokemon()
+  userStore.allPokemon.value = await getPokemon()
 });
 
 onBeforeUnmount(() => {
