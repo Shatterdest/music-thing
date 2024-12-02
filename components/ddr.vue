@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen border border-red-600">
+  <div class="h-screen w-screen">
     <div class="relative h-72">
       <div class="relative h-full w-4/5 border border-black">
         <div id="left" class="relative">
@@ -111,4 +111,8 @@ onNuxtReady(async () => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+#audio {
+  display:none
+}
+</style>

@@ -18,6 +18,12 @@
     </div>
   </div>
 
+  <div v-if="showDDR">
+    <div class="ddr-overlay">
+      <ddr />
+    </div>
+  </div>
+
   <!-- Canvas -->
   <div id="canvas">
     <canvas ref="canvas"></canvas>
@@ -33,8 +39,11 @@ const canvas = ref(null);
 const mapScale = 3;
 const { logout } = useAuth();
 const pokedexStore = usePokedexStore(); // Use the Pokedex store
+const userStore = useUserStore();
 console.log(map);
 const showPokedex = computed(() => pokedexStore.showPokedex);
+const showDDR = ref(false);
+const intervalId = ref(null);
 
 // Toggle Pokedex visibility
 const togglePokedex = () => {
@@ -42,6 +51,25 @@ const togglePokedex = () => {
 };
 
 onMounted(() => {
+  userStore.fetchAllPokemon();
+  intervalId.value = setInterval(async () => {
+    const random = Math.random();
+    console.log(random);
+    if (random < 0.1) {
+      console.log(random);
+      if (showDDR.value == true || pokedexStore.showPokedex == true) {
+        // too lazy to clean up
+      } else {
+        showDDR.value = true;
+        console.log("waiting 20s");
+        await wait(20);
+        console.log("waited");
+        userStore.addPokemon();
+        showDDR.value = false;
+      }
+    }
+  }, 1000);
+
   if (canvas.value && canvas.value.getContext) {
     const ctx = canvas.value.getContext("2d");
     canvas.value.width = window.innerWidth;
@@ -249,6 +277,15 @@ onMounted(() => {
     console.error("Canvas is not supported or not found.");
   }
 });
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId.value);
+  console.log("Interval stopped");
+});
+
+function wait(seconds) {
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+}
 </script>
 <style>
 html,
@@ -291,6 +328,19 @@ canvas {
 }
 
 .pokedex-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent overlay */
+  z-index: 2000; /* Ensure it's above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ddr-overlay {
   position: fixed;
   top: 0;
   left: 0;

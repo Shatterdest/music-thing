@@ -76,10 +76,6 @@
   </div>
 </template>
 
-<script setup>
-const pokedexStore = usePokedexStore();
-</script>
-
 <script>
 export default {
   data() {
@@ -87,11 +83,14 @@ export default {
       showPokedex: true, // Controls visibility of Pokedex
       pokemons: [], // List of Pokémon
       selectedPokemon: { id: 0, name: "", image: "", types: [] }, // Selected Pokémon details
-      selectedPokemonId: null // ID of the selected Pokémon
+      selectedPokemonId: null, // ID of the selected Pokémon,
+      pokedexStore : usePokedexStore(),
+      userStore: useUserStore()
     };
   },
   async mounted() {
-    await this.fetchPokemonData(); // Fetch Pokémon data when component is mounted
+    this.pokemons = this.userStore.pokemon.value
+    console.log(this.pokemons)
   },
   methods: {
     togglePokedex() {
