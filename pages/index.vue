@@ -1,31 +1,23 @@
 <template>
-    <div class="background bg-contain w-screen h-screen bg-repeat-x background-image relative overflow-hidden">
-        <div>
-            <div class="w-screen h-[65vh] flex items-end justify-center relative">
-                <img src="../public/bgExtractLogo.png" alt="" class="w-[70vh]" />
-            </div>
-            <div class="h-[35vh] flex-col lg:flex-row lg:justify-center lg:items-center lg:flex ">
-                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start relative z-10">
-                    <div class=" w-[50%] h-18 mt-2 lg:w-full h-18 flex items-center">
-                        <div class="font-pixelifySans text-start text-5xl mt-1">Old Player?</div>
-                    </div>
-                    <LoginButton class="w-[40%] lg:w-full lg:mt-1" />
-                </div>
-                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start relative z-10">
-                    <div class=" w-[50%] h-18 mt-2 lg:w-full h-18 flex items-center">
-                        <div class="font-pixelifySans text-start text-5xl mt-1">New Player?</div>
-                    </div>
-                    <SignUpButton class="w-[40%] lg:w-full lg:mt-1"/>
-                </div>
-                <div class=" p-3 h-[11.666vh] content-center lg:h-full lg:w-[33.3vw]  flex flex-wrap lg:flex-col justify-start lg:justify-center items-start relative z-10">
-                    <div class=" w-[50%] h-18 mt-2 lg:w-full h-18 flex items-center">
-                        <div class="font-pixelifySans text-start text-5xl mt-1">Who Are We?</div>
-                    </div>
-                    <AboutUsButton class="w-[40%] lg:w-full lg:mt-1"/>
-                </div>
-            </div>
+  <div class="background background-image relative h-screen w-screen overflow-hidden bg-contain bg-repeat-x">
+    <div>
+      <div class="relative flex h-[65vh] w-screen items-end justify-center">
+        <img src="../public/bgExtractLogo.png" alt="" class="w-[70vh]" />
+      </div>
+      <div class="h-[35vh] flex-col lg:flex lg:flex-row lg:items-center lg:justify-center">
+        <div class="relative z-10 flex h-[11.666vh] flex-wrap content-center items-start justify-start p-3 lg:h-full lg:w-[33.3vw] lg:flex-col lg:justify-center">
+          <div class="h-18 h-18 mt-2 flex w-[50%] items-center lg:w-full">
+            <div class="mt-1 text-start font-pixelifySans text-5xl">Old Player?</div>
+          </div>
+          <LoginButton class="w-[40%] lg:mt-1 lg:w-full" />
         </div>
-        <div class="flex h-[11.666vh] flex-wrap content-center items-start justify-start p-3 lg:h-full lg:w-[33.3vw] lg:flex-col lg:justify-center">
+        <div class="relative z-10 flex h-[11.666vh] flex-wrap content-center items-start justify-start p-3 lg:h-full lg:w-[33.3vw] lg:flex-col lg:justify-center">
+          <div class="h-18 h-18 mt-2 flex w-[50%] items-center lg:w-full">
+            <div class="mt-1 text-start font-pixelifySans text-5xl">New Player?</div>
+          </div>
+          <SignUpButton class="w-[40%] lg:mt-1 lg:w-full" />
+        </div>
+        <div class="relative z-10 flex h-[11.666vh] flex-wrap content-center items-start justify-start p-3 lg:h-full lg:w-[33.3vw] lg:flex-col lg:justify-center">
           <div class="h-18 h-18 mt-2 flex w-[50%] items-center lg:w-full">
             <div class="mt-1 text-start font-pixelifySans text-5xl">Who Are We?</div>
           </div>
@@ -33,6 +25,14 @@
         </div>
       </div>
     </div>
+    <div class="flex h-[11.666vh] flex-wrap content-center items-start justify-start p-3 lg:h-full lg:w-[33.3vw] lg:flex-col lg:justify-center">
+      <div class="h-18 h-18 mt-2 flex w-[50%] items-center lg:w-full">
+        <div class="mt-1 text-start font-pixelifySans text-5xl">Who Are We?</div>
+      </div>
+      <AboutUsButton class="w-[40%] lg:mt-1 lg:w-full" />
+    </div>
+  </div>
+  <div>
     <div class="absolute left-0 top-0 h-screen w-screen">
       <img :style="{ transform: `translateX(${position1}px)` }" src="../public/bgExtractBird.png" alt="Pokemon1" class="pokemon absolute bottom-[40vh] w-[35vh]" />
       <img :style="{ transform: `translateX(${position2}px)` }" src="../public/bgExtractBird.png" alt="Pokemon2" class="pokemon absolute bottom-[40vh] w-[35vh]" />
@@ -96,8 +96,7 @@ export default {
 
 /* Ensure all buttons are above other elements */
 .z-10 {
-    z-index: 10;
-    position: relative; /* Ensure proper stacking context */
+  z-index: 10;
+  position: relative; /* Ensure proper stacking context */
 }
-
 </style>
