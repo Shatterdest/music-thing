@@ -37,6 +37,10 @@ export const useUserStore = defineStore("userStore", () => {
     allPokemon.value = await getPokemon();
   }
 
+  function returnPokemon() {
+    return pokemon.value
+  }
+
   async function fetchData() {
     try {
       const docRef = doc(db, "users", uid.value);
@@ -75,5 +79,5 @@ export const useUserStore = defineStore("userStore", () => {
     }
   }
 
-  return { uid, email, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, fetchAllPokemon, addPokemon, $reset };
+  return { uid, email, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, fetchAllPokemon, addPokemon, returnPokemon, $reset };
 });

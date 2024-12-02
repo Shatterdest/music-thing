@@ -24,14 +24,11 @@
             <button
               v-for="(pokemon, index) in pokemons"
               :key="index"
-              :style="{
-                backgroundColor: selectedPokemonId === pokemon.id ? getLighterTypeColor(pokemon.types[0]) : '#E4F4DB'
-              }"
               class="mb-2 ml-1 mt-2 w-[95%] rounded-bl-lg border-4 border-black p-2 py-2 text-start font-pixelifySans text-xl text-black lg:mr-4 lg:h-[70px] lg:text-2xl xl:text-3xl 2xl:text-4xl"
               @click="selectPokemon(pokemon)"
             >
               <div class="flex items-center">
-                <img :src="getTypeImage(pokemon.types[0])" alt="Type" class="mr-2 h-8 w-8" />
+                <img :src="getTypeImage(pokemon.types)" alt="Type" class="mr-2 h-8 w-8" />
                 <span>#{{ formatId(pokemon.id) }} {{ capitalizeName(pokemon.name) }}</span>
               </div>
             </button>
@@ -46,7 +43,7 @@
               <div class="p-1 text-xl md:p-3 md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-5xl">{{ capitalizeName(selectedPokemon.name) }}</div>
             </div>
             <div class="relative h-[78%]">
-              <img :src="selectedPokemon.image" class="image-rendering-pixelated absolute left-0 top-0 z-10 h-full w-full object-contain" alt="Selected Pokémon" />
+              <img :src="selectedPokemon.spriteImage" class="image-rendering-pixelated absolute left-0 top-0 z-10 h-full w-full object-contain" alt="Selected Pokémon" />
               <img src="/public/synthWave.jpg" alt="SynthWave" class="absolute left-0 top-0 z-0 h-full w-full border-t-4 border-black object-cover" />
             </div>
             <div
@@ -76,38 +73,40 @@
   </div>
 </template>
 
+
+
 <script>
 export default {
   data() {
     return {
+
       showPokedex: true, // Controls visibility of Pokedex
-      pokemons: [], // List of Pokémon
       selectedPokemon: { id: 0, name: "", image: "", types: [] }, // Selected Pokémon details
       selectedPokemonId: null, // ID of the selected Pokémon,
       pokedexStore : usePokedexStore(),
       userStore: useUserStore()
     };
   },
-  async mounted() {
-    this.pokemons = this.userStore.pokemon.value
-    console.log(this.pokemons)
+  mounted() {
+    const userStore = useUserStore()
+    this.pokemons =  userStore.returnPokemon()
   },
   methods: {
     togglePokedex() {
       this.showPokedex = !this.showPokedex; // Toggle the visibility of the Pokedex
     },
-    async fetchPokemonData() {
-      try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
-        const data = await response.json();
-        this.pokemons = await Promise.all(data.results.map((pokemon, index) => this.getPokemonDetails(pokemon.name, index + 1)));
-        console.log("Pokemons fetched:", this.pokemons); // Log fetched Pokémon
-        // Default select the first Pokémon
-        this.selectPokemon(this.pokemons[0]);
-      } catch (error) {
-        console.error("Error fetching Pokémon data:", error);
-      }
-    },
+      // async fetchPokemonData() {
+      //   try {
+      //     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+      //     const data = await response.json();
+      //     this.pokemons = await Promise.all(data.results.map((pokemon, index) => this.getPokemonDetails(pokemon.name, index + 1)));
+      //     console.log("Pokemons fetched:", this.pokemons); // Log fetched Pokémon
+      //     // Default select the first Pokémon
+      //     this.selectPokemon(this.pokemons[0]);
+      //   } catch (error) {
+      //     console.error("Error fetching Pokémon data:", error);
+      //   }
+      // },
     async getPokemonDetails(pokemonName, id) {
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
