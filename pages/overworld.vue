@@ -1,4 +1,24 @@
 <template>
+  <!-- Logout Button -->
+  <nuxt-link to="login">
+    <div class="logout-button h-[18] w-[200px] rounded-[25px] border-[5px] border-solid border-black bg-white" @click="logout">
+      <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">LOGOUT</div>
+    </div>
+  </nuxt-link>
+
+  <!-- New Button with Image -->
+  <div class="image-button rounded-[25px] border-[5px] border-solid border-black bg-white" @click="togglePokedex">
+    <img src="/public/pokedexIcon.jpg" alt="Pokedex Icon" class="pokedex-icon p-2" />
+  </div>
+
+  <!-- Pokedex Component -->
+  <div v-if="showPokedex">
+    <div class="pokedex-overlay">
+      <Pokedex />
+    </div>
+  </div>
+
+  <!-- Canvas -->
   <div id="canvas">
     <canvas ref="canvas"></canvas>
   </div>
@@ -7,10 +27,19 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { map } from "../assets/data/map.ts";
+import { useAuth } from "@/composables/firebaseAuth";
 
 const canvas = ref(null);
-const mapScale = 3
+const mapScale = 3;
+const { logout } = useAuth();
+const pokedexStore = usePokedexStore(); // Use the Pokedex store
 console.log(map);
+const showPokedex = computed(() => pokedexStore.showPokedex);
+
+// Toggle Pokedex visibility
+const togglePokedex = () => {
+  pokedexStore.togglePokedex();
+};
 onMounted(() => {
   if (canvas.value && canvas.value.getContext) {
     const ctx = canvas.value.getContext("2d");
@@ -60,13 +89,13 @@ onMounted(() => {
     class Boundary {
       constructor({ position }) {
         this.position = position;
-        this.width = 16*mapScale;
-        this.height = 15*mapScale;
+        this.width = 16 * mapScale;
+        this.height = 15 * mapScale;
       }
     }
 
-    const OFFSET_X = 280*mapScale;
-    const OFFSET_Y = 420*mapScale;
+    const OFFSET_X = 280 * mapScale;
+    const OFFSET_Y = 420 * mapScale;
 
     const background = new Sprite({
       position: { x: -OFFSET_X, y: -OFFSET_Y },
@@ -93,7 +122,7 @@ onMounted(() => {
     });
 
     const boundaries = [];
-    const tileSize = 16*mapScale;
+    const tileSize = 16 * mapScale;
 
     map.forEach((row, i) => {
       row.forEach((tile, j) => {
@@ -101,8 +130,8 @@ onMounted(() => {
           boundaries.push(
             new Boundary({
               position: {
-                x: ((j * tileSize) - (OFFSET_X - (mapScale*60))),
-                y: ((i * tileSize) - (OFFSET_Y - (mapScale*80)))
+                x: j * tileSize - (OFFSET_X - mapScale * 60),
+                y: i * tileSize - (OFFSET_Y - mapScale * 80)
               }
             })
           );
@@ -182,8 +211,8 @@ onMounted(() => {
       const movementOffsets = {
         up: { x: 0, y: -speed * deltaTime },
         down: { x: 0, y: speed * deltaTime },
-        left: { x: -speed * deltaTime, y:0 },
-        right: { x: speed * deltaTime, y:0 }
+        left: { x: -speed * deltaTime, y: 0 },
+        right: { x: speed * deltaTime, y: 0 }
       };
 
       if (lastKeyPressed && keys[lastKeyPressed]) {
@@ -214,14 +243,12 @@ onMounted(() => {
       }
     }
 
-
     animate(0);
   } else {
     console.error("Canvas is not supported or not found.");
   }
 });
 </script>
-
 <style>
 html,
 body {
@@ -237,5 +264,46 @@ canvas {
   width: 100vw;
   height: 100vh;
   image-rendering: pixelated;
+}
+</style>
+<style scoped>
+.logout-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.image-button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  width: 200px;
+  height: 150px;
+}
+
+.pokedex-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pokedex-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent overlay */
+  z-index: 2000; /* Ensure it's above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure that canvas does not interfere with the Pokedex overlay */
+#canvas {
+  position: relative;
 }
 </style>
