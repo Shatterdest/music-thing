@@ -74,6 +74,16 @@ export default {
     clearInterval(this.interval); // Clear interval on component destruction
   }
 };
+
+let interval;
+onMounted(() => {
+  userStore.fetchAllPokemon()
+  interval = setInterval(slidePokemon, 14); // Start the sliding animation
+});
+
+onBeforeUnmount(() => {
+  clearInterval(interval); // Clear interval on component destruction
+});
 </script>
 
 <style scoped>

@@ -40,6 +40,7 @@ const showPokedex = computed(() => pokedexStore.showPokedex);
 const togglePokedex = () => {
   pokedexStore.togglePokedex();
 };
+
 onMounted(() => {
   if (canvas.value && canvas.value.getContext) {
     const ctx = canvas.value.getContext("2d");
