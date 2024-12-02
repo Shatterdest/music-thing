@@ -6,7 +6,7 @@
           class="absolute left-1/2 top-0 z-10 flex h-[13%] w-[102.2%] -translate-x-1/2 -translate-y-[10%] items-center justify-center rounded-tr-[30px] border-[5px] border-black md:border-[8px] lg:w-[101.4%]"
         >
           <div class="relative flex h-[100%] w-[100%] justify-end rounded-tr-[20px] bg-[#4DAAFA]">
-            <div class="flex w-1/2 items-center pl-3 text-start font-pixelifySans text-2xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl">Caught: SomeX</div>
+            <div class="flex w-1/2 items-center pl-3 text-start font-pixelifySans text-2xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-5xl 2xl:text-6xl">Caught: ???</div>
             <div
               class="absolute left-0 top-1/2 z-20 flex h-[120%] w-[50%] -translate-y-1/2 items-center justify-center rounded-[20px] border-[4px] border-solid border-black bg-[#6CCBFB] md:border-r-[8px] lg:border-[8px]"
             >
@@ -53,7 +53,7 @@
               :style="{ backgroundColor: selectedPokemonTypeColor }"
               class="align-center flex h-[10%] flex-row items-center justify-start rounded-br-[20px] border-t-8 border-solid border-black bg-pink-400 font-pixelifySans"
             >
-              <div class="p-1 text-xl md:p-3 md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-5xl">Caught: 80</div>
+              <div class="p-1 text-xl md:p-3 md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-5xl">Caught: ???</div>
             </div>
           </div>
         </div>
@@ -161,7 +161,33 @@ export default {
       };
       return typeColors[type] || "#A8A878"; // Return color for the Pokémon type
     }
-  }
+  },
+  computed: {
+        selectedPokemonTypeColor() {
+            const typeColors = {
+                fire: '#F08030',
+                water: '#6890F0',
+                grass: '#78C850',
+                electric: '#F8D030',
+                psychic: '#F85888',
+                ice: '#98D8D8',
+                dragon: '#7038F8',
+                dark: '#705848',
+                fairy: '#EE99AC',
+                normal: '#A8A878',
+                bug: '#A8B820',
+                poison: '#A040A0',
+                ground: '#E0C068',
+                flying: '#A890F0',
+                fighting: '#C03028',
+                steel: '#B8B8D0',
+                ghost: '#705898',
+                rock: '#B8A038',
+                unknown: '#68A090'
+            };
+            return typeColors[this.selectedPokemon.types[0]] || '#A8A878'; // Default color if no type
+        }
+    }
 };
 </script>
 
