@@ -1,13 +1,14 @@
+const plugin = require("tailwindcss/plugin");
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./components/**/*.{js,vue,ts}", "./layouts/**/*.vue", "./pages/**/*.vue", "./plugins/**/*.{js,ts}", "./app.vue", "./error.vue"],
   theme: {
     extend: {
       fontFamily: {
-        pixelifySans: ["Pixelify Sans", "sans-serif"],
+        pixelifySans: ["Pixelify Sans", "sans-serif"]
       },
       colors: {
-        'creamy-white': '#FFEFEF',
+        "creamy-white": "#FFEFEF"
       },
       keyframes: {
         fall: {
@@ -16,10 +17,20 @@ export default {
         }
       },
       animation: {
-        fall: "fall 1.2s linear infinite"
+        fall: "fall 1.2s linear"
       }
     }
-    },  
-    plugins: []
-  }
-
+  },
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "animate-delay": (value) => ({
+            animationDelay: value
+          })
+        },
+        { values: theme("transitionDelay") }
+      );
+    })
+  ]
+};
