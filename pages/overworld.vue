@@ -8,7 +8,7 @@
 
   <!-- New Button with Image -->
   <div class="image-button border-[5px] border-solid border-black bg-white" @click="togglePokedex">
-    <img src="/public/pokedexIcon.png" alt="Pokedex Icon" class="pokedex-icon scale-150 p-2" />
+    <img src="../public/pokedexicon.png" alt="Pokedex Icon" class="pokedex-icon scale-150 p-2" />
   </div>
 
   <!-- Pokedex Component -->
@@ -55,9 +55,7 @@ onMounted(() => {
   userStore.fetchAllPokemon();
   intervalId.value = setInterval(async () => {
     const random = Math.random();
-    console.log(random);
     if (random < 0.2) {
-      console.log(random);
       if (showDDR.value == true || pokedexStore.showPokedex == true || userStore.onGrass == false) {
         // too lazy to clean up
       } else {
