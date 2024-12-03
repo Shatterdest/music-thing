@@ -124,7 +124,7 @@ onMounted(() => {
     }
   }, 1000);
 
-  if ( window !== undefined && canvas.value && canvas.value.getContext) {
+  if ( window.innerWidth !== undefined && window.innerHeight !== undefined && canvas.value && canvas.value.getContext) {
     const ctx = canvas.value.getContext("2d");
     canvas.value.width = window.innerWidth;
     canvas.value.height = window.innerHeight;
