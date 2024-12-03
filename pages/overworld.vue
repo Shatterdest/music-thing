@@ -1,14 +1,14 @@
 <template>
   <!-- Logout Button -->
   <nuxt-link to="login">
-    <div class="logout-button h-[18] w-[200px] rounded-[25px] border-[5px] border-solid border-black bg-white" @click="logout">
+    <div class="logout-button h-[18] w-[200px] border-[5px] border-solid border-black bg-white" @click="logout">
       <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">LOGOUT</div>
     </div>
   </nuxt-link>
 
   <!-- New Button with Image -->
-  <div class="image-button rounded-[25px] border-[5px] border-solid border-black bg-white" @click="togglePokedex">
-    <img src="/public/pokedexIcon.jpg" alt="Pokedex Icon" class="pokedex-icon p-2" />
+  <div class="image-button border-[5px] border-solid border-black bg-white" @click="togglePokedex">
+    <img src="/public/pokedexIcon.png" alt="Pokedex Icon" class="pokedex-icon scale-150 p-2" />
   </div>
 
   <!-- Pokedex Component -->
@@ -33,6 +33,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { map } from "../assets/data/map.ts";
+import { grass } from "../assets/data/grass.ts";
 import { useAuth } from "@/composables/firebaseAuth";
 
 const canvas = ref(null);
@@ -121,10 +122,13 @@ onMounted(() => {
         this.width = 16 * mapScale;
         this.height = 15 * mapScale;
       }
+      draw() {
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height, "red");
+      }
     }
 
-    const OFFSET_X = 280 * mapScale;
-    const OFFSET_Y = 420 * mapScale;
+    const OFFSET_X = 1325;
+    const OFFSET_Y = 1510;
 
     const background = new Sprite({
       position: { x: -OFFSET_X, y: -OFFSET_Y },
@@ -139,7 +143,7 @@ onMounted(() => {
     const player = new Sprite({
       position: { x: canvas.value.width / 3, y: canvas.value.height / 3 },
       image: { src: "/player/player_forward.png" },
-      frames: { max: 3, hold: 12 },
+      frames: { max: 3, hold: 6 },
       sprites: {
         up: { src: "/player/player_back.png" },
         left: { src: "/player/player_left.png" },
@@ -151,6 +155,7 @@ onMounted(() => {
     });
 
     const boundaries = [];
+    const encounters = [];
     const tileSize = 16 * mapScale;
 
     map.forEach((row, i) => {
@@ -160,6 +165,21 @@ onMounted(() => {
             new Boundary({
               position: {
                 x: j * tileSize - (OFFSET_X - mapScale * 60),
+                y: i * tileSize - (OFFSET_Y - mapScale * 80)
+              }
+            })
+          );
+        }
+      });
+    });
+
+    grass.forEach((row, i) => {
+      row.forEach((tile, j) => {
+        if (tile === 1) {
+          encounters.push(
+            new Boundary({
+              position: {
+                x: j * tileSize - (OFFSET_X - mapScale),
                 y: i * tileSize - (OFFSET_Y - mapScale * 80)
               }
             })
@@ -231,9 +251,17 @@ onMounted(() => {
 
       background.draw();
       player.draw();
+      encounters.forEach((tile) => {
+        tile.draw();
+      });
       foreground.draw();
 
       handleMovement(deltaTime, speed);
+
+      const onGrass = encounters.some((tile) => isCollision(player, tile));
+      if (onGrass) {
+        console.log("You are on grass!");
+      }
     }
 
     function handleMovement(deltaTime, speed) {
@@ -264,9 +292,14 @@ onMounted(() => {
           background.position.y -= offset.y;
           foreground.position.x -= offset.x;
           foreground.position.y -= offset.y;
-          boundaries.forEach((boundary) => {
-            boundary.position.x -= offset.x;
-            boundary.position.y -= offset.y;
+          boundaries.forEach((tile) => {
+            tile.position.x -= offset.x;
+            tile.position.y -= offset.y;
+          });
+
+          encounters.forEach((tile) => {
+            tile.position.x -= offset.x;
+            tile.position.y -= offset.y;
           });
         }
       }
