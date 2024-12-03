@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from "vue";
 
 // Reactive variables for Pokémon positions and animation settings
 const position1 = ref(0);
@@ -80,7 +80,6 @@ onBeforeUnmount(() => {
   clearInterval(interval); // Clear interval on component destruction
 });
 </script>
-
 
 <style scoped>
 .pokemon {

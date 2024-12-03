@@ -1,14 +1,14 @@
 <template>
   <!-- Logout Button -->
   <nuxt-link to="login">
-    <div class="logout-button h-[18] w-[200px] rounded-[25px] border-[5px] border-solid border-black bg-white" @click="logout">
+    <div class="logout-button h-[18] w-[200px] border-[5px] border-solid border-black bg-white" @click="logout">
       <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">LOGOUT</div>
     </div>
   </nuxt-link>
 
   <!-- New Button with Image -->
-  <div class="image-button rounded-[25px] border-[5px] border-solid border-black bg-white" @click="togglePokedex">
-    <img src="/public/pokedexIcon.jpg" alt="Pokedex Icon" class="pokedex-icon p-2" />
+  <div class="image-button border-[5px] border-solid border-black bg-white" @click="togglePokedex">
+    <img src="../public/pokedexicon.png" alt="Pokedex Icon" class="pokedex-icon scale-150 p-2" />
   </div>
 
   <!-- Pokedex Component -->
@@ -19,7 +19,7 @@
   </div>
 
   <div v-if="showDDR">
-    <div class="ddr-overlay">
+    <div class="ddr-overlay flex justify-center">
       <ddr />
     </div>
   </div>
@@ -33,6 +33,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { map } from "../assets/data/map.ts";
+import { grass } from "../assets/data/grass.ts";
 import { useAuth } from "@/composables/firebaseAuth";
 
 const canvas = ref(null);
@@ -54,13 +55,12 @@ onMounted(() => {
   userStore.fetchAllPokemon();
   intervalId.value = setInterval(async () => {
     const random = Math.random();
-    console.log(random);
-    if (random < 0.1) {
-      console.log(random);
-      if (showDDR.value == true || pokedexStore.showPokedex == true) {
+    if (random < 0.2) {
+      if (showDDR.value == true || pokedexStore.showPokedex == true || userStore.onGrass == false) {
         // too lazy to clean up
       } else {
         showDDR.value = true;
+        userStore.rhythmScore = 0;
         console.log("waiting 20s");
         await wait(20);
         console.log("waited");
@@ -70,16 +70,18 @@ onMounted(() => {
     }
   }, 1000);
 
-  if (canvas.value && canvas.value.getContext) {
+  if (typeof window !== "undefined" && canvas.value && canvas.value.getContext) {
     const ctx = canvas.value.getContext("2d");
     canvas.value.width = window.innerWidth;
     canvas.value.height = window.innerHeight;
 
-    window.addEventListener("resize", () => {
+    const resizeHandler = () => {
       canvas.value.width = window.innerWidth;
       canvas.value.height = window.innerHeight;
-    });
+    };
+    window.addEventListener("resize", resizeHandler);
 
+    console.log(window.innerWidth, window.innerHeight);
     class Sprite {
       constructor({ position, image, frames = { max: 1, hold: 12 }, sprites, animate = false, scale = 3 }) {
         this.position = position;
@@ -121,10 +123,18 @@ onMounted(() => {
         this.width = 16 * mapScale;
         this.height = 15 * mapScale;
       }
+      draw() {
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height, "red");
+      }
     }
+    const REFERENCE_WIDTH = 1494;
+    const REFERENCE_HEIGHT = 742;
 
-    const OFFSET_X = 280 * mapScale;
-    const OFFSET_Y = 420 * mapScale;
+    const SCALE_X = window.innerWidth / REFERENCE_WIDTH;
+    const SCALE_Y = window.innerHeight / REFERENCE_HEIGHT;
+
+    const OFFSET_X = 0.731 * REFERENCE_WIDTH * SCALE_X;
+    const OFFSET_Y = 1.9 * REFERENCE_HEIGHT * SCALE_Y;
 
     const background = new Sprite({
       position: { x: -OFFSET_X, y: -OFFSET_Y },
@@ -137,9 +147,9 @@ onMounted(() => {
     });
 
     const player = new Sprite({
-      position: { x: canvas.value.width / 3, y: canvas.value.height / 3 },
+      position: { x: canvas.value.width / 2 - 16, y: canvas.value.height / 2 - 24 },
       image: { src: "/player/player_forward.png" },
-      frames: { max: 3, hold: 12 },
+      frames: { max: 3, hold: 6 },
       sprites: {
         up: { src: "/player/player_back.png" },
         left: { src: "/player/player_left.png" },
@@ -151,6 +161,7 @@ onMounted(() => {
     });
 
     const boundaries = [];
+    const encounters = [];
     const tileSize = 16 * mapScale;
 
     map.forEach((row, i) => {
@@ -160,6 +171,21 @@ onMounted(() => {
             new Boundary({
               position: {
                 x: j * tileSize - (OFFSET_X - mapScale * 60),
+                y: i * tileSize - (OFFSET_Y - mapScale * 80)
+              }
+            })
+          );
+        }
+      });
+    });
+
+    grass.forEach((row, i) => {
+      row.forEach((tile, j) => {
+        if (tile === 1) {
+          encounters.push(
+            new Boundary({
+              position: {
+                x: j * tileSize - (OFFSET_X - mapScale),
                 y: i * tileSize - (OFFSET_Y - mapScale * 80)
               }
             })
@@ -234,6 +260,14 @@ onMounted(() => {
       foreground.draw();
 
       handleMovement(deltaTime, speed);
+
+      const onGrass = encounters.some((tile) => isCollision(player, tile));
+      if (onGrass) {
+        console.log("You are on grass!");
+        userStore.onGrass = true;
+      } else {
+        userStore.onGrass = false;
+      }
     }
 
     function handleMovement(deltaTime, speed) {
@@ -264,23 +298,29 @@ onMounted(() => {
           background.position.y -= offset.y;
           foreground.position.x -= offset.x;
           foreground.position.y -= offset.y;
-          boundaries.forEach((boundary) => {
-            boundary.position.x -= offset.x;
-            boundary.position.y -= offset.y;
+          boundaries.forEach((tile) => {
+            tile.position.x -= offset.x;
+            tile.position.y -= offset.y;
+          });
+
+          encounters.forEach((tile) => {
+            tile.position.x -= offset.x;
+            tile.position.y -= offset.y;
           });
         }
       }
     }
 
     animate(0);
+
+    onBeforeUnmount(() => {
+      clearInterval(intervalId.value);
+      window.removeEventListener("resize", resizeHandler);
+      console.log("Interval stopped");
+    });
   } else {
     console.error("Canvas is not supported or not found.");
   }
-});
-
-onBeforeUnmount(() => {
-  clearInterval(intervalId.value);
-  console.log("Interval stopped");
 });
 
 function wait(seconds) {
