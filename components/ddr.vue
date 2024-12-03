@@ -86,7 +86,7 @@ onNuxtReady(async () => {
   });
 
   window.addEventListener("keydown", (e) => {
-    if ((e.key == "ArrowLeft" || "ArrowDown" || "ArrowUp" || "ArrowRight") && !e.repeat) {
+    if (["ArrowLeft", "ArrowDown", "ArrowUp", "ArrowRight"].includes(e.key) && !e.repeat) {
       const targetArrow = ref(document.getElementById("staticArrowLeft").getBoundingClientRect().top.toFixed(0));
 
       const track = ref(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild.getBoundingClientRect().top.toFixed(0));
