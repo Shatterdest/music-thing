@@ -66,35 +66,35 @@ const isGlowing = ref({
 });
 
 const leftNotes = ref([
-  { val: "[animation-delay:_4.8s]" },
-  { val: "[animation-delay:_6.1s]" },
-  { val: "[animation-delay:_7.4s]" },
-  { val: "[animation-delay:_12.5s]" },
-  { val: "[animation-delay:_16.08s]" }
+  { val: "[animation-delay:_4.5s]" },
+  { val: "[animation-delay:_5.8s]" },
+  { val: "[animation-delay:_7.1s]" },
+  { val: "[animation-delay:_12.2s]" },
+  { val: "[animation-delay:_15.78s]" }
 ]);
 
 const downNotes = ref([
-  { val: "[animation-delay:_2.2s]" },
-  { val: "[animation-delay:_9.8s]" },
-  { val: "[animation-delay:_12.1s]" },
-  { val: "[animation-delay:_13.1s]" },
-  { val: "[animation-delay:_14.5s]" }
+  { val: "[animation-delay:_1.9s]" },
+  { val: "[animation-delay:_9.5s]" },
+  { val: "[animation-delay:_11.8s]" },
+  { val: "[animation-delay:_12.8s]" },
+  { val: "[animation-delay:_14.2s]" }
 ]);
 
 const upNotes = ref([
-  { val: "[animation-delay:_2.7s]" },
-  { val: "[animation-delay:_6.9s]" },
-  { val: "[animation-delay:_7.9s]" },
-  { val: "[animation-delay:_10s]" },
-  { val: "[animation-delay:_13.5s]" }
+  { val: "[animation-delay:_2.4s]" },
+  { val: "[animation-delay:_6.6s]" },
+  { val: "[animation-delay:_7.6s]" },
+  { val: "[animation-delay:_9.7s]" },
+  { val: "[animation-delay:_13.2s]" }
 ]);
 
 const rightNotes = ref([
-  { val: "[animation-delay:_3.7s]" },
-  { val: "[animation-delay:_10.5s]" },
-  { val: "[animation-delay:_11.3s]" },
-  { val: "[animation-delay:_15.7s]" },
-  { val: "[animation-delay:_16.9s]" }
+  { val: "[animation-delay:_3.4s]" },
+  { val: "[animation-delay:_10.2s]" },
+  { val: "[animation-delay:_11s]" },
+  { val: "[animation-delay:_15.4s]" },
+  { val: "[animation-delay:_16.6s]" }
 ]);
 
 const triggerGlow = (direction) => {
