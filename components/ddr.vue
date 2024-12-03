@@ -1,31 +1,25 @@
 <template>
   <div class="h-screen w-screen">
     <div class="relative h-72">
-      <div class="relative h-full w-4/5 border border-black">
+      <div class="relative h-full w-3/5 border border-black">
         <div id="left" class="relative">
           <leftArrow id="leftArrow" v-for="item in leftNotes" :delay="item.val"></leftArrow>
         </div>
         <div class="absolute bottom-0">
-          <img class="rotate-90" id="LstaticArrow" src="../public/Arrow.png" />
+          <img class="data-buttonPressed:animate-spin rotate-90" data-buttonPressed="buttonPressed active" id="staticArrowLeft" src="../public/Arrow.png" />
+          <img class="absolute bottom-0 left-24 rotate-0" data-buttonPressed="buttonPressed inactive" id="staticArrowUp" src="../public/Arrow.png" />
+          <img class="absolute bottom-0 left-48 rotate-180" id="staticArrowDown" data-buttonPressed="buttonPressed inactive" src="../public/Arrow.png" />
+          <img class="absolute bottom-0 left-72 -rotate-90" data-buttonPressed="buttonPressed inactive" id="staticArrowRight" src="../public/Arrow.png" />
         </div>
 
         <div id="down" class="relative ml-24">
           <downArrow id="downArrow" v-for="item in downNotes" :delay="item.val"></downArrow>
-          <div class="absolute bottom-0 left-24">
-            <img class="" id="DstaticArrow" src="../public/Arrow.png" />
-          </div>
         </div>
         <div id="up" class="relative ml-48">
           <upArrow id="upArrow" v-for="item in upNotes" :delay="item.val"></upArrow>
-          <div class="absolute bottom-0 left-24">
-            <img class="" id="UstaticArrow" src="../public/Arrow.png" />
-          </div>
         </div>
         <div id="right" class="relative ml-72">
           <rightArrow id="rightArrow" v-for="item in rightNotes" :delay="item.val"></rightArrow>
-          <div class="absolute bottom-0 left-24">
-            <img class="" id="RstaticArrow" src="../public/Arrow.png" />
-          </div>
         </div>
       </div>
     </div>
@@ -60,13 +54,13 @@ const upNotes = ref([
   { val: "[animation-delay:_13.5s]" }
 ]);
 
-const rightNotes = ref(  [
-    { "val": "[animation-delay:_3.7s]" },
-    { "val": "[animation-delay:_10.5s]" },
-    { "val": "[animation-delay:_11.3s]" },
-    { "val": "[animation-delay:_15.7s]" },
-    { "val": "[animation-delay:_16.9s]" }
-  ]);
+const rightNotes = ref([
+  { val: "[animation-delay:_3.7s]" },
+  { val: "[animation-delay:_10.5s]" },
+  { val: "[animation-delay:_11.3s]" },
+  { val: "[animation-delay:_15.7s]" },
+  { val: "[animation-delay:_16.9s]" }
+]);
 
 onMounted(() => {});
 
@@ -87,12 +81,16 @@ onNuxtReady(async () => {
 
   window.addEventListener("keydown", (e) => {
     if ((e.key == "ArrowLeft" || "ArrowDown" || "ArrowUp" || "ArrowRight") && !e.repeat) {
-      const targetArrow = ref(document.getElementById("LstaticArrow").getBoundingClientRect().top.toFixed(0));
+      document.getElementById("staticArrow" + e.key.slice(5));
+
+      const targetArrow = ref(document.getElementById("staticArrowLeft").getBoundingClientRect().top.toFixed(0));
 
       const track = ref(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild.getBoundingClientRect().top.toFixed(0));
       if (track.value >= targetArrow.value - 36) {
         console.log("Hit.");
-        document.getElementById(e.key.slice(5).toLowerCase()).removeChild(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild);
+
+        document.getElementById("staticArrow" + e.key.slice(5)).setAttribute("data-buttonPressed", "buttonPressed active");
+
         score++;
         console.log(score.value);
       } else {
@@ -113,6 +111,6 @@ onNuxtReady(async () => {
 
 <style scoped>
 #audio {
-  display:none
+  display: none;
 }
 </style>

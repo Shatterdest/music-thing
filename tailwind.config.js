@@ -7,6 +7,9 @@ export default {
       fontFamily: {
         pixelifySans: ["Pixelify Sans", "sans-serif"]
       },
+      data: {
+        buttonPressed: 'press~="buttonPressed"'
+      },
       colors: {
         "creamy-white": "#FFEFEF"
       },

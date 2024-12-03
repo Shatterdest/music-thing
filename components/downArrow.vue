@@ -1,5 +1,5 @@
 <template>
-  <div id="DdynamicArrow" :class="delay" class="absolute animate-fall grayscale"><img src="../public/Arrow.png" /></div>
+  <div id="DdynamicArrow" :class="delay" class="absolute animate-fall"><img src="../public/Arrow.png" /></div>
 </template>
 
 <script setup>
