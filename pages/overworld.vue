@@ -5,33 +5,51 @@
       <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">LOGOUT</div>
     </div>
   </nuxt-link>
+  <div class="logout-button h-[18] w-[200px] mt-40 border-[5px] border-solid border-black bg-white" @click="showHelp=true">
+    <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">HELP</div>
+  </div>
 
-  <!-- New Button with Image -->
   <div class="image-button border-[5px] border-solid border-black bg-white" @click="togglePokedex">
     <img src="../public/pokedexicon.png" alt="Pokedex Icon" class="pokedex-icon scale-150 p-2" />
   </div>
 
-  <!-- Pokedex Component -->
+  <div v-if="showHelp">
+    <div class="pokedex-overlay font-pixelifySans">
+      <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div class="bg-white p-6 rounded-lg max-w-md w-full">
+          <h2 class="text-2xl font-bold mb-4">Help</h2>
+          <p class="mb-4">Welcome to our Pokémon Rhythm game. Get a high score so you can catch them all!</p>
+          <p class="mb-4"><strong>Controls:</strong> WASD for player movement, Arrow Keys for rhythm game.</p>
+          <p class="mb-4">If you catch a Pokémon, it'll go in your Pokédex. Good luck trainers!</p>
+
+          <!-- Close Button -->
+          <button @click="showHelp = false" class="bg-red-500 text-white px-4 py-2 rounded mt-4">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <div v-if="showPokedex">
     <div class="pokedex-overlay">
       <Pokedex />
     </div>
   </div>
-
+  
   <div v-if="showDDR">
     <div class="ddr-overlay flex justify-center">
       <ddr />
     </div>
   </div>
 
-  <!-- Canvas -->
   <div id="canvas">
     <canvas ref="canvas"></canvas>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed, onBeforeUnmount } from "vue";
 import { map } from "../assets/data/map.ts";
 import { grass } from "../assets/data/grass.ts";
 import { useAuth } from "@/composables/firebaseAuth";
@@ -39,32 +57,38 @@ import { useAuth } from "@/composables/firebaseAuth";
 const canvas = ref(null);
 const mapScale = 3;
 const { logout } = useAuth();
-const pokedexStore = usePokedexStore(); // Use the Pokedex store
+const pokedexStore = usePokedexStore();
 const userStore = useUserStore();
-console.log(map);
+
 const showPokedex = computed(() => pokedexStore.showPokedex);
 const showDDR = ref(false);
+const showHelp = ref(false);
 const intervalId = ref(null);
 
-// Toggle Pokedex visibility
 const togglePokedex = () => {
   pokedexStore.togglePokedex();
 };
 
 onMounted(() => {
   userStore.fetchAllPokemon();
+
   intervalId.value = setInterval(async () => {
     const random = Math.random();
     if (random < 0.2) {
-      if (showDDR.value == true || pokedexStore.showPokedex == true || userStore.onGrass == false) {
-        // too lazy to clean up
+      if (showDDR.value || pokedexStore.showPokedex || !userStore.onGrass) {
+        // Skip encounter if not moving or not on grass
       } else {
         showDDR.value = true;
         userStore.rhythmScore = 0;
-        console.log("waiting 20s");
+        console.log("Starting encounter...");
+
         await wait(20);
-        console.log("waited");
-        userStore.addPokemon();
+
+        console.log("Encounter ended.");
+        const encounteredPokemon = userStore.getRandomMon();
+        console.log("Encountered:", encounteredPokemon);
+        userStore.addPokemon(encounteredPokemon);
+
         showDDR.value = false;
       }
     }
@@ -81,7 +105,6 @@ onMounted(() => {
     };
     window.addEventListener("resize", resizeHandler);
 
-    console.log(window.innerWidth, window.innerHeight);
     class Sprite {
       constructor({ position, image, frames = { max: 1, hold: 12 }, sprites, animate = false, scale = 3 }) {
         this.position = position;
@@ -127,6 +150,7 @@ onMounted(() => {
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height, "red");
       }
     }
+
     const REFERENCE_WIDTH = 1494;
     const REFERENCE_HEIGHT = 742;
 
@@ -198,13 +222,9 @@ onMounted(() => {
     let lastKeyPressed = "";
 
     const keyMap = {
-      ArrowUp: "up",
       w: "up",
-      ArrowDown: "down",
       s: "down",
-      ArrowLeft: "left",
       a: "left",
-      ArrowRight: "right",
       d: "right"
     };
 
@@ -216,59 +236,27 @@ onMounted(() => {
         obj1.position.y + obj1.height > obj2.position.y
       );
     }
+    let moving = false;
 
     window.addEventListener("keydown", (event) => {
       const direction = keyMap[event.key];
+      moving = true
       if (direction && lastKeyPressed !== direction) {
         lastKeyPressed = direction;
 
         player.image.src = player.sprites[direction].src;
         player.animate = true;
 
-        Object.keys(keys).forEach((key) => (keys[key] = key === direction));
+        Object.keys(keys).forEach((key) => {
+          keys[key] = key === direction;
+        });
       }
     });
 
-    window.addEventListener("keyup", (event) => {
-      const direction = keyMap[event.key];
-      if (direction) {
-        keys[direction] = false;
-
-        if (lastKeyPressed === direction) {
-          lastKeyPressed = "";
-          player.animate = false;
-        }
-      }
+    window.addEventListener("keyup", () => {
+      lastKeyPressed = "";
+      player.animate = false;
     });
-
-    let lastTime = 0;
-
-    function animate(currentTime) {
-      const deltaTime = (currentTime - lastTime) / 1000;
-      lastTime = currentTime;
-
-      const speed = 300;
-
-      canvas.value.width = window.innerWidth;
-      canvas.value.height = window.innerHeight;
-
-      window.requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-      background.draw();
-      player.draw();
-      foreground.draw();
-
-      handleMovement(deltaTime, speed);
-
-      const onGrass = encounters.some((tile) => isCollision(player, tile));
-      if (onGrass) {
-        console.log("You are on grass!");
-        userStore.onGrass = true;
-      } else {
-        userStore.onGrass = false;
-      }
-    }
 
     function handleMovement(deltaTime, speed) {
       const movementOffsets = {
@@ -277,6 +265,7 @@ onMounted(() => {
         left: { x: -speed * deltaTime, y: 0 },
         right: { x: speed * deltaTime, y: 0 }
       };
+
 
       if (lastKeyPressed && keys[lastKeyPressed]) {
         const offset = movementOffsets[lastKeyPressed];
@@ -294,10 +283,13 @@ onMounted(() => {
         });
 
         if (!isColliding) {
+          moving = true;
+
           background.position.x -= offset.x;
           background.position.y -= offset.y;
           foreground.position.x -= offset.x;
           foreground.position.y -= offset.y;
+
           boundaries.forEach((tile) => {
             tile.position.x -= offset.x;
             tile.position.y -= offset.y;
@@ -308,25 +300,38 @@ onMounted(() => {
             tile.position.y -= offset.y;
           });
         }
+
+        // Check if player is on grass
+        const onGrass = encounters.some((tile) => isCollision(player, tile));
+        if (onGrass && moving) {
+          userStore.onGrass = true;
+        } else {
+          userStore.onGrass = false;
+        }
       }
     }
 
-    animate(0);
+    function animate() {
+      const speed = 5;
+      const deltaTime = 1;
 
-    onBeforeUnmount(() => {
-      clearInterval(intervalId.value);
-      window.removeEventListener("resize", resizeHandler);
-      console.log("Interval stopped");
-    });
-  } else {
-    console.error("Canvas is not supported or not found.");
+      handleMovement(deltaTime, speed);
+      background.draw();
+      foreground.draw();
+      player.draw();
+  
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   }
-});
-
-function wait(seconds) {
+  function wait(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
+});
 </script>
+
 <style>
 html,
 body {
