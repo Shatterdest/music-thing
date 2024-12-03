@@ -56,9 +56,9 @@ onMounted(() => {
   intervalId.value = setInterval(async () => {
     const random = Math.random();
     console.log(random);
-    if (random < 0.1) {
+    if (random < 0.2) {
       console.log(random);
-      if (showDDR.value == true || pokedexStore.showPokedex == true) {
+      if (showDDR.value == true || pokedexStore.showPokedex == true || userStore.onGrass == false) {
         // too lazy to clean up
       } else {
         showDDR.value = true;
@@ -258,6 +258,9 @@ onMounted(() => {
       const onGrass = encounters.some((tile) => isCollision(player, tile));
       if (onGrass) {
         console.log("You are on grass!");
+        userStore.onGrass = true;
+      } else {
+        userStore.onGrass = false;
       }
     }
 
