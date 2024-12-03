@@ -36,7 +36,7 @@ export const useUserStore = defineStore("userStore", () => {
   }
 
   function addPokemon(num: number): void {
-    const mon = allPokemon.value[num];
+    const mon = allPokemon.value[num - 1];
     if (mon) {
       pokemon.value.push(mon);
     }

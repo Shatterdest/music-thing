@@ -5,7 +5,7 @@
       <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">LOGOUT</div>
     </div>
   </nuxt-link>
-  <div class="logout-button h-[18] w-[200px] mt-40 border-[5px] border-solid border-black bg-white" @click="showHelp=true">
+  <div class="logout-button mt-40 h-[18] w-[200px] border-[5px] border-solid border-black bg-white" @click="showHelp = true">
     <div class="mb-2 ml-2 mr-2 mt-1 text-center font-pixelifySans text-5xl">HELP</div>
   </div>
 
@@ -15,28 +15,26 @@
 
   <div v-if="showHelp">
     <div class="pokedex-overlay font-pixelifySans">
-      <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-        <div class="bg-white p-6 rounded-lg max-w-md w-full">
-          <h2 class="text-2xl font-bold mb-4">Help</h2>
+      <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="w-full max-w-md rounded-lg bg-white p-6">
+          <h2 class="mb-4 text-2xl font-bold">Help</h2>
           <p class="mb-4">Welcome to our Pokémon Rhythm game. Get a high score so you can catch them all!</p>
           <p class="mb-4"><strong>Controls:</strong> WASD for player movement, Arrow Keys for rhythm game.</p>
           <p class="mb-4">If you catch a Pokémon, it'll go in your Pokédex. Good luck trainers!</p>
 
           <!-- Close Button -->
-          <button @click="showHelp = false" class="bg-red-500 text-white px-4 py-2 rounded mt-4">
-            Close
-          </button>
+          <button @click="showHelp = false" class="mt-4 rounded bg-red-500 px-4 py-2 text-white">Close</button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div v-if="showPokedex">
     <div class="pokedex-overlay">
       <Pokedex />
     </div>
   </div>
-  
+
   <div v-if="showDDR">
     <div class="ddr-overlay flex justify-center">
       <ddr />
@@ -76,18 +74,17 @@ onMounted(() => {
     const random = Math.random();
     if (random < 0.2) {
       if (showDDR.value || pokedexStore.showPokedex || !userStore.onGrass) {
-        // Skip encounter if not moving or not on grass
       } else {
         showDDR.value = true;
         userStore.rhythmScore = 0;
         console.log("Starting encounter...");
+        userStore.encounteredPoke = userStore.getRandomMon();
+        console.log("Encountered:", userStore.encounteredPoke);
 
         await wait(20);
-
+        userStore.addPokemon(userStore.encounteredPoke.id);
         console.log("Encounter ended.");
-        const encounteredPokemon = userStore.getRandomMon();
-        console.log("Encountered:", encounteredPokemon);
-        userStore.addPokemon(encounteredPokemon);
+        userStore.encounteredPoke = "";
 
         showDDR.value = false;
       }
@@ -240,7 +237,7 @@ onMounted(() => {
 
     window.addEventListener("keydown", (event) => {
       const direction = keyMap[event.key];
-      moving = true
+      moving = true;
       if (direction && lastKeyPressed !== direction) {
         lastKeyPressed = direction;
 
@@ -265,7 +262,6 @@ onMounted(() => {
         left: { x: -speed * deltaTime, y: 0 },
         right: { x: speed * deltaTime, y: 0 }
       };
-
 
       if (lastKeyPressed && keys[lastKeyPressed]) {
         const offset = movementOffsets[lastKeyPressed];
@@ -319,7 +315,6 @@ onMounted(() => {
       background.draw();
       foreground.draw();
       player.draw();
-  
 
       requestAnimationFrame(animate);
     }
@@ -327,8 +322,8 @@ onMounted(() => {
     animate();
   }
   function wait(seconds) {
-  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
-}
+    return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+  }
 });
 </script>
 

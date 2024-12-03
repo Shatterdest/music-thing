@@ -2,10 +2,9 @@
   <div class="h-screen w-screen font-pixelifySans">
     <div class="absolute inset-0 flex items-center justify-center">
       <div class="flex items-center space-x-8 rounded-md p-6">
-        <img :src="pokemon.spriteImage" alt="Pokemon Sprite" class="h-80 w-80" />
+        <img :src="userStore.encounteredPoke.spriteImage" alt="Pokemon Sprite" class="h-80 w-80" />
         <div class="space-y-4">
-          <p class="text-5xl font-bold text-white">{{ pokemon.name }}</p>
-      
+          <p class="text-5xl font-bold text-white">{{ userStore.encounteredPoke.name }}</p>
         </div>
       </div>
     </div>
