@@ -1,5 +1,5 @@
 <template>
-  <!--   <div class="background background-image relative h-screen w-screen overflow-hidden bg-contain bg-repeat-x">
+  <div class="background background-image relative h-screen w-screen overflow-hidden bg-contain bg-repeat-x">
     <div>
       <div class="relative flex h-[65vh] w-screen items-end justify-center">
         <img src="../public/bgExtractLogo.png" alt="" class="w-[70vh]" />
@@ -38,8 +38,7 @@
       <img :style="{ transform: `translateX(${position2}px)` }" src="../public/bgExtractBird.png" alt="Pokemon2" class="pokemon absolute bottom-[40vh] w-[35vh]" />
       <img :style="{ transform: `translateX(${position3}px)` }" src="../public/bgExtractBird.png" alt="Pokemon3" class="pokemon absolute bottom-[40vh] w-[35vh]" />
     </div>
-  </div> -->
-  <ddr ></ddr>
+  </div>
 </template>
 
 <script setup>

@@ -9,7 +9,7 @@
           <img class="rotate-90" id="staticArrowLeft" src="../public/Arrow.png" />
           <img class="absolute bottom-0 left-24 rotate-0" da id="staticArrowUp" src="../public/Arrow.png" />
           <img class="absolute bottom-0 left-48 rotate-180" id="staticArrowDown" da src="../public/Arrow.png" />
-          <img @keypress="AnimationEffect" class="absolute bottom-0 left-72 -rotate-90"  id="staticArrowRight" src="../public/Arrow.png" />
+          <img @keypress="AnimationEffect" class="absolute bottom-0 left-72 -rotate-90" id="staticArrowRight" src="../public/Arrow.png" />
         </div>
 
         <div id="down" class="relative ml-24">
@@ -25,8 +25,8 @@
       <div id="pokeScore">
         <img class="ml-5 mt-5 scale-[1.5]" v-if="userStore.rhythmScore > 0 && userStore.rhythmScore <= 5" src="../public/balls/poke_ball.png" />
         <img class="ml-5 mt-5 scale-[2]" v-if="userStore.rhythmScore > 5 && userStore.rhythmScore <= 10" src="../public/balls/great_ball.png" />
-        <img class="ml-5 mt-8 scale-[3]" v-if="userStore.rhythmScore > 10 && userStore.rhythmScore <= 15" src="../public/balls/ultra_ball.png" />
-        <img class="ml-5 mt-11 scale-[3.5]" src="../public/balls/master_ball.png" v-if="userStore.rhythmScore > 15" />
+        <img class="ml-5 mt-8 scale-[3]" v-if="userStore.rhythmScore > 10 && userStore.rhythmScore <= 18" src="../public/balls/ultra_ball.png" />
+        <img class="ml-5 mt-11 scale-[3.5]" src="../public/balls/master_ball.png" v-if="userStore.rhythmScore > 18" />
       </div>
     </div>
     <audio controls id="audio"><source src="../public/RedBattle.mp3" type="audio/mp3" /></audio>
