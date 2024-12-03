@@ -1,18 +1,13 @@
 <template>
   <div class="h-screen w-screen font-pixelifySans">
-    <div class="absolute top-4 left-4 flex items-center space-x-4">
-      <img
-        :src="pokemon.spriteImage"
-        alt="Pokemon Sprite"
-        class="h-16 w-16"
-      />
-      <p class="text-xl font-bold text-white">{{ pokemon.name }}</p>
-      <div>
-    <h1 v-if="pokemon.name">{{pokemon.name}}</h1>
-    <h1 v-else>Loading...</h1>
-    <img :src="pokemon.spriteImage" alt="Random Pokemon" v-if="imageUrl" class="pokemon-image" />
-    <p v-else>Loading...</p>
-  </div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="flex items-center space-x-8 rounded-md p-6">
+        <img :src="pokemon.spriteImage" alt="Pokemon Sprite" class="h-80 w-80" />
+        <div class="space-y-4">
+          <p class="text-5xl font-bold text-white">{{ pokemon.name }}</p>
+      
+        </div>
+      </div>
     </div>
 
     <div class="relative h-72">
@@ -22,34 +17,10 @@
         </div>
 
         <div class="absolute bottom-0">
-          <img
-            class="rotate-90"
-            id="staticArrowLeft"
-            src="../public/Arrow.png"
-            alt="Arrow Left"
-            :class="{'glow': isGlowing['left']}"
-          />
-          <img
-            class="absolute bottom-0 left-24 rotate-0"
-            id="staticArrowUp"
-            src="../public/Arrow.png"
-            alt="Arrow Up"
-            :class="{'glow': isGlowing['up']}"
-          />
-          <img
-            class="absolute bottom-0 left-48 rotate-180"
-            id="staticArrowDown"
-            src="../public/Arrow.png"
-            alt="Arrow Down"
-            :class="{'glow': isGlowing['down']}"
-          />
-          <img
-            class="absolute bottom-0 left-72 -rotate-90"
-            id="staticArrowRight"
-            src="../public/Arrow.png"
-            alt="Arrow Right"
-            :class="{'glow': isGlowing['right']}"
-          />
+          <img class="rotate-90" id="staticArrowLeft" src="../public/Arrow.png" alt="Arrow Left" :class="{ glow: isGlowing['left'] }" />
+          <img class="absolute bottom-0 left-24 rotate-0" id="staticArrowUp" src="../public/Arrow.png" alt="Arrow Up" :class="{ glow: isGlowing['up'] }" />
+          <img class="absolute bottom-0 left-48 rotate-180" id="staticArrowDown" src="../public/Arrow.png" alt="Arrow Down" :class="{ glow: isGlowing['down'] }" />
+          <img class="absolute bottom-0 left-72 -rotate-90" id="staticArrowRight" src="../public/Arrow.png" alt="Arrow Right" :class="{ glow: isGlowing['right'] }" />
         </div>
 
         <div id="down" class="relative ml-24">
@@ -85,7 +56,7 @@
 import { ref, onMounted } from "vue";
 
 const userStore = useUserStore();
-const pokemon = ref(userStore.getRandomMon);
+const pokemon = ref(userStore.getRandomMon());
 
 const isGlowing = ref({
   left: false,
