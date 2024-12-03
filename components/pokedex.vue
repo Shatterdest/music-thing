@@ -75,39 +75,36 @@
 
 
 
-<script>
-export default {
-  data() {
-    return {
+<script setup>
+const showPokedex = ref(true)
+const selectedPokemon = ref({ id: 0, name: "", image: "", types: [] })
+const selectedPokemonId = ref(null)
+const pokedexStore = usePokedexStore()
+const userStore = useUserStore()
+const pokemons = ref([])
 
-      showPokedex: true, // Controls visibility of Pokedex
-      selectedPokemon: { id: 0, name: "", image: "", types: [] }, // Selected Pokémon details
-      selectedPokemonId: null, // ID of the selected Pokémon,
-      pokedexStore : usePokedexStore(),
-      userStore: useUserStore()
-    };
-  },
-  mounted() {
-    const userStore = useUserStore()
-    this.pokemons =  userStore.returnPokemon()
-  },
-  methods: {
-    togglePokedex() {
-      this.showPokedex = !this.showPokedex; // Toggle the visibility of the Pokedex
-    },
-      // async fetchPokemonData() {
-      //   try {
-      //     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
-      //     const data = await response.json();
-      //     this.pokemons = await Promise.all(data.results.map((pokemon, index) => this.getPokemonDetails(pokemon.name, index + 1)));
-      //     console.log("Pokemons fetched:", this.pokemons); // Log fetched Pokémon
-      //     // Default select the first Pokémon
-      //     this.selectPokemon(this.pokemons[0]);
-      //   } catch (error) {
-      //     console.error("Error fetching Pokémon data:", error);
-      //   }
-      // },
-    async getPokemonDetails(pokemonName, id) {
+onMounted(() => {
+  pokemons = userStore.returnPokemon()
+})
+
+function togglePokedex() {
+  showPokedex.value = !showPokedex.value
+}
+
+async function fetchPokemonData() {
+        try {
+          const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+          const data = await response.json();
+          this.pokemons = await Promise.all(data.results.map((pokemon, index) => this.getPokemonDetails(pokemon.name, index + 1)));
+          console.log("Pokemons fetched:", this.pokemons); // Log fetched Pokémon
+          // Default select the first Pokémon
+          selectPokemon(this.pokemons[0]);
+        } catch (error) {
+          console.error("Error fetching Pokémon data:", error);
+        }
+      }
+
+      async function getPokemonDetails(pokemonName, id) {
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         const data = await response.json();
@@ -121,23 +118,25 @@ export default {
         console.error(`Error fetching details for ${pokemonName}:`, error);
         return {};
       }
-    },
-    selectPokemon(pokemon) {
+    }
+
+
+ function   selectPokemon(pokemon) {
       this.selectedPokemon = pokemon; // Set selected Pokémon
       this.selectedPokemonId = pokemon.id; // Track selected Pokémon ID
-    },
-    capitalizeName(name) {
+    }
+    function  capitalizeName(name) {
       return name.charAt(0).toUpperCase() + name.slice(1); // Capitalize Pokémon name
-    },
-    formatId(id) {
+    }
+    function   formatId(id) {
       return String(id).padStart(4, "0"); // Format Pokémon ID to 4 digits
-    },
-    getTypeImage(type) {
+    }
+    function  getTypeImage(type) {
       const imagePath = `/pokemonTypes/${type}Type.png`; // Path to type image
       console.log(`Type Image Path: ${imagePath}`); // Log the generated path for troubleshooting
       return imagePath; // Return the path
-    },
-    getLighterTypeColor(type) {
+    }
+    function  getLighterTypeColor(type) {
       const typeColors = {
         fire: "#F08030",
         water: "#6890F0",
@@ -159,34 +158,6 @@ export default {
       };
       return typeColors[type] || "#A8A878"; // Return color for the Pokémon type
     }
-  },
-  computed: {
-        selectedPokemonTypeColor() {
-            const typeColors = {
-                fire: '#F08030',
-                water: '#6890F0',
-                grass: '#78C850',
-                electric: '#F8D030',
-                psychic: '#F85888',
-                ice: '#98D8D8',
-                dragon: '#7038F8',
-                dark: '#705848',
-                fairy: '#EE99AC',
-                normal: '#A8A878',
-                bug: '#A8B820',
-                poison: '#A040A0',
-                ground: '#E0C068',
-                flying: '#A890F0',
-                fighting: '#C03028',
-                steel: '#B8B8D0',
-                ghost: '#705898',
-                rock: '#B8A038',
-                unknown: '#68A090'
-            };
-            return typeColors[this.selectedPokemon.types[0]] || '#A8A878'; // Default color if no type
-        }
-    }
-};
 </script>
 
 <style>
