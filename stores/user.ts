@@ -16,6 +16,7 @@ export const useUserStore = defineStore("userStore", () => {
   const expiration = ref(0);
   const pokemon = ref<PokemonObject[]>([]);
   const allPokemon = ref<PokemonObject[]>([]);
+  const onGrass = ref<boolean>();
 
   function $reset() {
     uid.value = "";
@@ -29,8 +30,8 @@ export const useUserStore = defineStore("userStore", () => {
 
   function addPokemon() {
     const number = Math.floor(Math.random() * 151);
-    const mon = allPokemon.value[number]
-    pokemon.value.push(mon)
+    const mon = allPokemon.value[number];
+    pokemon.value.push(mon);
   }
 
   async function fetchAllPokemon() {
@@ -38,7 +39,7 @@ export const useUserStore = defineStore("userStore", () => {
   }
 
   function returnPokemon() {
-    return pokemon.value
+    return pokemon.value;
   }
 
   async function fetchData() {
@@ -79,5 +80,5 @@ export const useUserStore = defineStore("userStore", () => {
     }
   }
 
-  return { uid, email, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, fetchAllPokemon, addPokemon, returnPokemon, $reset };
+  return { uid, email, onGrass, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, fetchAllPokemon, addPokemon, returnPokemon, $reset };
 });
