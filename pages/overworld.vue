@@ -69,15 +69,17 @@ onMounted(() => {
     }
   }, 1000);
 
-  if (canvas.value && canvas.value.getContext) {
+  if (typeof window !== "undefined" && canvas.value && canvas.value.getContext) {
     const ctx = canvas.value.getContext("2d");
     canvas.value.width = window.innerWidth;
     canvas.value.height = window.innerHeight;
 
-    window.addEventListener("resize", () => {
+    const resizeHandler = () => {
       canvas.value.width = window.innerWidth;
       canvas.value.height = window.innerHeight;
-    });
+    };
+    window.addEventListener("resize", resizeHandler);
+    
     console.log(window.innerWidth,window.innerHeight)
     class Sprite {
       constructor({ position, image, frames = { max: 1, hold: 12 }, sprites, animate = false, scale = 3 }) {
@@ -304,15 +306,19 @@ onMounted(() => {
     }
 
     animate(0);
+
+    onBeforeUnmount(() => {
+  clearInterval(intervalId.value);
+  window.removeEventListener("resize", resizeHandler);
+  console.log("Interval stopped");
+});
+
   } else {
     console.error("Canvas is not supported or not found.");
   }
+  
 });
 
-onBeforeUnmount(() => {
-  clearInterval(intervalId.value);
-  console.log("Interval stopped");
-});
 
 function wait(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
