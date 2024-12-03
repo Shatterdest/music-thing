@@ -8,7 +8,7 @@
 
   <!-- New Button with Image -->
   <div class="image-button border-[5px] border-solid border-black bg-white" @click="togglePokedex">
-    <img src="/public/pokedexIcon.png" alt="Pokedex Icon" class="pokedex-icon scale-150 p-2" />
+    <img src="../public/pokedexicon.png" alt="Pokedex Icon" class="pokedex-icon scale-150 p-2" />
   </div>
 
   <!-- Pokedex Component -->
