@@ -14,6 +14,7 @@ export const useUserStore = defineStore("userStore", () => {
   const token = ref("");
   const refreshToken = ref("");
   const expiration = ref(0);
+  const encounteredPoke = ref("");
   const pokemon = ref<PokemonObject[]>([]);
   const latestPokemon = ref<PokemonObject[]>([]);
   const allPokemon = ref<PokemonObject[]>([]);
@@ -29,15 +30,15 @@ export const useUserStore = defineStore("userStore", () => {
     expiration.value = 0;
     pokemon.value = [];
   }
-  function getRandomMon(){
+  function getRandomMon() {
     const number = Math.floor(Math.random() * 151);
-    const randomMon = allPokemon.value[number]
+    const randomMon = allPokemon.value[number];
     return JSON.parse(JSON.stringify(randomMon));
   }
-  
+
   function addPokemon(num: number): void {
     const mon = allPokemon.value[num];
-    if (mon) { 
+    if (mon) {
       pokemon.value.push(mon);
     }
   }
@@ -88,5 +89,25 @@ export const useUserStore = defineStore("userStore", () => {
     }
   }
 
-  return { uid, email, onGrass, rhythmScore, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, fetchAllPokemon, addPokemon, returnPokemon, getRandomMon, $reset };
+  return {
+    uid,
+    email,
+    encounteredPoke,
+    onGrass,
+    rhythmScore,
+    displayName,
+    token,
+    refreshToken,
+    pokemon,
+    allPokemon,
+    expiration,
+    fetchToken,
+    saveData,
+    fetchData,
+    fetchAllPokemon,
+    addPokemon,
+    returnPokemon,
+    getRandomMon,
+    $reset
+  };
 });
