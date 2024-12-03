@@ -126,9 +126,14 @@ onMounted(() => {
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height, "red");
       }
     }
+    const REFERENCE_WIDTH = 1494; 
+    const REFERENCE_HEIGHT = 742; 
 
-    const OFFSET_X = 0.731 * window.innerWidth;
-    const OFFSET_Y =1.9 * window.innerHeight;
+    const SCALE_X = window.innerWidth / REFERENCE_WIDTH;
+    const SCALE_Y = window.innerHeight / REFERENCE_HEIGHT;
+
+    const OFFSET_X = 0.731 * REFERENCE_WIDTH * SCALE_X;
+    const OFFSET_Y = 1.9 * REFERENCE_HEIGHT * SCALE_Y;
 
     const background = new Sprite({
       position: { x: -OFFSET_X, y: -OFFSET_Y },
