@@ -51,18 +51,18 @@
     </audio>
   </div>
 </template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 
 const userStore = useUserStore();
-const pokemon = ref(userStore.getRandomMon());
-
+userStore.latestPokemon = userStore.getRandomMon()
+const pokemon = ref(userStore.latestPokemon)
+console.log(userStore.latestPokemon)
 const isGlowing = ref({
   left: false,
   up: false,
   down: false,
-  right: false
+  right: false,
 });
 
 const leftNotes = ref([
@@ -70,7 +70,7 @@ const leftNotes = ref([
   { val: "[animation-delay:_6.1s]" },
   { val: "[animation-delay:_7.4s]" },
   { val: "[animation-delay:_12.5s]" },
-  { val: "[animation-delay:_16.08s]" }
+  { val: "[animation-delay:_16.08s]" },
 ]);
 
 const downNotes = ref([
@@ -78,7 +78,7 @@ const downNotes = ref([
   { val: "[animation-delay:_9.8s]" },
   { val: "[animation-delay:_12.1s]" },
   { val: "[animation-delay:_13.1s]" },
-  { val: "[animation-delay:_14.5s]" }
+  { val: "[animation-delay:_14.5s]" },
 ]);
 
 const upNotes = ref([
@@ -86,7 +86,7 @@ const upNotes = ref([
   { val: "[animation-delay:_6.9s]" },
   { val: "[animation-delay:_7.9s]" },
   { val: "[animation-delay:_10s]" },
-  { val: "[animation-delay:_13.5s]" }
+  { val: "[animation-delay:_13.5s]" },
 ]);
 
 const rightNotes = ref([
@@ -94,8 +94,9 @@ const rightNotes = ref([
   { val: "[animation-delay:_10.5s]" },
   { val: "[animation-delay:_11.3s]" },
   { val: "[animation-delay:_15.7s]" },
-  { val: "[animation-delay:_16.9s]" }
+  { val: "[animation-delay:_16.9s]" },
 ]);
+
 
 const triggerGlow = (direction) => {
   isGlowing.value[direction] = true;
@@ -105,6 +106,7 @@ const triggerGlow = (direction) => {
 };
 
 onMounted(() => {
+  
   const audio = document.getElementById("audio");
   audio.play();
 
@@ -131,7 +133,10 @@ onMounted(() => {
     }
   });
 });
+
+
 </script>
+
 
 <style scoped>
 #audio {

@@ -15,6 +15,7 @@ export const useUserStore = defineStore("userStore", () => {
   const refreshToken = ref("");
   const expiration = ref(0);
   const pokemon = ref<PokemonObject[]>([]);
+  const latestPokemon = ref<PokemonObject[]>([]);
   const allPokemon = ref<PokemonObject[]>([]);
   const onGrass = ref<boolean>();
   const rhythmScore = ref(0);
