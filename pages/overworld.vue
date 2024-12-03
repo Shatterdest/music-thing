@@ -55,9 +55,7 @@ onMounted(() => {
   userStore.fetchAllPokemon();
   intervalId.value = setInterval(async () => {
     const random = Math.random();
-    console.log(random);
     if (random < 0.2) {
-      console.log(random);
       if (showDDR.value == true || pokedexStore.showPokedex == true || userStore.onGrass == false) {
         // too lazy to clean up
       } else {
