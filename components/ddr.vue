@@ -7,7 +7,7 @@
         </div>
         <div class="absolute bottom-0">
           <img class="rotate-90" id="staticArrowLeft" src="../public/Arrow.png" />
-          <img class="absolute bottom-0 left-24 rotate-0" da id="staticArrowUp" src="../public/Arrow.png" />
+          <img class="absolute bottom-0 left-24 rotate-0" id="staticArrowUp" src="../public/Arrow.png" />
           <img class="absolute bottom-0 left-48 rotate-180" id="staticArrowDown" da src="../public/Arrow.png" />
           <img @keypress="AnimationEffect" class="absolute bottom-0 left-72 -rotate-90" id="staticArrowRight" src="../public/Arrow.png" />
         </div>
@@ -87,7 +87,6 @@ onNuxtReady(async () => {
 
   window.addEventListener("keydown", (e) => {
     if ((e.key == "ArrowLeft" || "ArrowDown" || "ArrowUp" || "ArrowRight") && !e.repeat) {
-      document.getElementById("staticArrow" + e.key.slice(5));
       const targetArrow = ref(document.getElementById("staticArrowLeft").getBoundingClientRect().top.toFixed(0));
 
       const track = ref(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild.getBoundingClientRect().top.toFixed(0));
@@ -104,12 +103,7 @@ onNuxtReady(async () => {
     }
   });
 
-  /*
-  Create an array for left arrow, right arrow, down arrow, up arrow.
-  v-for using the left arrow, etc. component.
-  The array contains a delay for each arrow to begin falling.
-  .firstChild to judge
-  */
+
 });
 </script>
 
