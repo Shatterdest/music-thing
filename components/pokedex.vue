@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen w-screen items-center justify-center">
-    <div v-if="showPokedex" class="flex h-[98vh] w-[98vw] items-center justify-center">
+    <div v-if="showPokedex" class="z-50 flex h-[98vh] w-[98vw] items-center justify-center">
       <div class="relative aspect-[4/3] max-h-[90%] w-full max-w-[88%] rounded-[30px] border-[5px] border-black md:border-[8px]">
         <div
           class="absolute left-1/2 top-0 z-10 flex h-[13%] w-[102.2%] -translate-x-1/2 -translate-y-[10%] items-center justify-center rounded-tr-[30px] border-[5px] border-black md:border-[8px] lg:w-[101.4%]"
@@ -73,91 +73,88 @@
   </div>
 </template>
 
-
-
 <script setup>
-const showPokedex = ref(true)
-const selectedPokemon = ref({ id: 0, name: "", image: "", types: [] })
-const selectedPokemonId = ref(null)
-const pokedexStore = usePokedexStore()
-const userStore = useUserStore()
-const pokemons = ref([])
+const showPokedex = ref(true);
+const selectedPokemon = ref({ id: 0, name: "", image: "", types: Array() });
+const selectedPokemonId = ref(null);
+const pokedexStore = usePokedexStore();
+const userStore = useUserStore();
+const pokemons = ref(Array());
 
 onMounted(() => {
-  pokemons = userStore.returnPokemon()
-})
+  pokemons.value = userStore.returnPokemon();
+});
 
 function togglePokedex() {
-  showPokedex.value = !showPokedex.value
+  showPokedex.value = !showPokedex.value;
 }
 
 async function fetchPokemonData() {
-        try {
-          const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
-          const data = await response.json();
-          this.pokemons = await Promise.all(data.results.map((pokemon, index) => this.getPokemonDetails(pokemon.name, index + 1)));
-          console.log("Pokemons fetched:", this.pokemons); // Log fetched Pokémon
-          // Default select the first Pokémon
-          selectPokemon(this.pokemons[0]);
-        } catch (error) {
-          console.error("Error fetching Pokémon data:", error);
-        }
-      }
+  try {
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+    const data = await response.json();
+    this.pokemons = await Promise.all(data.results.map((pokemon, index) => this.getPokemonDetails(pokemon.name, index + 1)));
+    console.log("Pokemons fetched:", this.pokemons); // Log fetched Pokémon
+    // Default select the first Pokémon
+    selectPokemon(this.pokemons[0]);
+  } catch (error) {
+    console.error("Error fetching Pokémon data:", error);
+  }
+}
 
-      async function getPokemonDetails(pokemonName, id) {
-      try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-        const data = await response.json();
-        return {
-          id,
-          name: data.name,
-          image: data.sprites.front_default,
-          types: data.types.map((type) => type.type.name)
-        };
-      } catch (error) {
-        console.error(`Error fetching details for ${pokemonName}:`, error);
-        return {};
-      }
-    }
+async function getPokemonDetails(pokemonName, id) {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    const data = await response.json();
+    return {
+      id,
+      name: data.name,
+      image: data.sprites.front_default,
+      types: data.types.map((type) => type.type.name)
+    };
+  } catch (error) {
+    console.error(`Error fetching details for ${pokemonName}:`, error);
+    return {};
+  }
+}
 
-
- function   selectPokemon(pokemon) {
-      this.selectedPokemon = pokemon; // Set selected Pokémon
-      this.selectedPokemonId = pokemon.id; // Track selected Pokémon ID
-    }
-    function  capitalizeName(name) {
-      return name.charAt(0).toUpperCase() + name.slice(1); // Capitalize Pokémon name
-    }
-    function   formatId(id) {
-      return String(id).padStart(4, "0"); // Format Pokémon ID to 4 digits
-    }
-    function  getTypeImage(type) {
-      const imagePath = `/pokemonTypes/${type}Type.png`; // Path to type image
-      console.log(`Type Image Path: ${imagePath}`); // Log the generated path for troubleshooting
-      return imagePath; // Return the path
-    }
-    function  getLighterTypeColor(type) {
-      const typeColors = {
-        fire: "#F08030",
-        water: "#6890F0",
-        grass: "#78C850",
-        electric: "#F8D030",
-        psychic: "#F85888",
-        bug: "#A8B820",
-        rock: "#B8A038",
-        ghost: "#705898",
-        dark: "#705848",
-        dragon: "#7038F8",
-        ice: "#98D8D8",
-        fairy: "#EE99AC",
-        poison: "#A040A0",
-        fighting: "#C03028",
-        ground: "#E0C068",
-        steel: "#B8B8D0",
-        normal: "#A8A878"
-      };
-      return typeColors[type] || "#A8A878"; // Return color for the Pokémon type
-    }
+function selectPokemon(pokemon) {
+  this.selectedPokemon = pokemon; // Set selected Pokémon
+  this.selectedPokemonId = pokemon.id; // Track selected Pokémon ID
+}
+function capitalizeName(name) {
+  return name.charAt(0).toUpperCase() + name.slice(1); // Capitalize Pokémon name
+}
+function formatId(id) {
+  return String(id).padStart(4, "0"); // Format Pokémon ID to 4 digits
+}
+function getTypeImage(type) {
+  const imagePath = `/pokemonTypes/${type}Type.png`; // Path to type image
+  console.log(`Type Image Path: ${imagePath}`); // Log the generated path for troubleshooting
+  return imagePath; // Return the path
+}
+function getLighterTypeColor(type) {
+  const typeColors = {
+    fire: "#F08030",
+    water: "#6890F0",
+    grass: "#78C850",
+    electric: "#F8D030",
+    psychic: "#F85888",
+    bug: "#A8B820",
+    rock: "#B8A038",
+    ghost: "#705898",
+    dark: "#705848",
+    dragon: "#7038F8",
+    ice: "#98D8D8",
+    fairy: "#EE99AC",
+    poison: "#A040A0",
+    fighting: "#C03028",
+    ground: "#E0C068",
+    steel: "#B8B8D0",
+    normal: "#A8A878"
+  };
+  return typeColors[type] || "#A8A878"; // Return color for the Pokémon type
+}
 </script>
 
 <style>
