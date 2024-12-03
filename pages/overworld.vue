@@ -141,8 +141,7 @@ onMounted(() => {
     });
 
     const player = new Sprite({
-      position: { x: canvas.value.width / 3, y: canvas.value.height / 3 },
-      image: { src: "/player/player_forward.png" },
+      position: { x: canvas.value.width / 2 - 16, y: canvas.value.height / 2 - 24 },      image: { src: "/player/player_forward.png" },
       frames: { max: 3, hold: 6 },
       sprites: {
         up: { src: "/player/player_back.png" },
