@@ -60,6 +60,7 @@ onMounted(() => {
         // too lazy to clean up
       } else {
         showDDR.value = true;
+        userStore.rhythmScore = 0;
         console.log("waiting 20s");
         await wait(20);
         console.log("waited");

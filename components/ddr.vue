@@ -22,12 +22,12 @@
           <rightArrow id="rightArrow" v-for="item in rightNotes" :delay="item.val"></rightArrow>
         </div>
       </div>
-      <div id="pokeScore">
+<!--       <div id="pokeScore">
         <img class="ml-5 mt-5 scale-[1.5]" v-if="userStore.rhythmScore > 0 && userStore.rhythmScore <= 5" src="../public/balls/poke_ball.png" />
         <img class="ml-5 mt-5 scale-[2]" v-if="userStore.rhythmScore > 5 && userStore.rhythmScore <= 10" src="../public/balls/great_ball.png" />
         <img class="ml-5 mt-8 scale-[3]" v-if="userStore.rhythmScore > 10 && userStore.rhythmScore <= 18" src="../public/balls/ultra_ball.png" />
         <img class="ml-5 mt-11 scale-[3.5]" src="../public/balls/master_ball.png" v-if="userStore.rhythmScore > 18" />
-      </div>
+      </div> -->
     </div>
     <audio controls id="audio"><source src="../public/RedBattle.mp3" type="audio/mp3" /></audio>
   </div>
@@ -93,8 +93,8 @@ onNuxtReady(async () => {
       const track = ref(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild.getBoundingClientRect().top.toFixed(0));
       if (track.value >= targetArrow.value - 36) {
         console.log("Hit.");
-
-        userStore.rhythmScore++;
+/* 
+        userStore.rhythmScore++; */
 
         console.log(score.value);
       } else {
