@@ -64,14 +64,6 @@
           <rightArrow id="rightArrow" v-for="(item, index) in rightNotes" :key="'right-' + index" :delay="item.val" />
         </div>
       </div>
-<<<<<<< HEAD
-    <div id="pokeScore">
-        <img class="ml-5 mt-5 scale-[1.5]" v-if="userStore.rhythmScore > 0 && userStore.rhythmScore <= 5" src="../public/balls/poke_ball.png" />
-        <img class="ml-5 mt-5 scale-[2]" v-if="userStore.rhythmScore > 5 && userStore.rhythmScore <= 10" src="../public/balls/great_ball.png" />
-        <img class="ml-5 mt-8 scale-[3]" v-if="userStore.rhythmScore > 10 && userStore.rhythmScore <= 18" src="../public/balls/ultra_ball.png" />
-        <img class="ml-5 mt-11 scale-[3.5]" src="../public/balls/master_ball.png" v-if="userStore.rhythmScore > 18" />
-      </div> 
-=======
 
       <div class="absolute right-4 top-4 flex items-center rounded bg-gray-800 px-4 py-2 text-white shadow-md">
         <img v-if="userStore.rhythmScore == 0" src="../public/balls/quick_ball.png" alt="Poke Ball" class="mr-2 h-8 w-8" />
@@ -81,7 +73,6 @@
         <img v-if="userStore.rhythmScore > 18" src="../public/balls/master_ball.png" alt="Master Ball" class="mr-2 h-8 w-8" />
         <p class="text-4xl font-bold">Score: {{ userStore.rhythmScore }}</p>
       </div>
->>>>>>> parent of 1829d3d6 (Merge branch 'Fix' of https://github.com/Shatterdest/music-thing into Fix)
     </div>
 
     <audio controls id="audio">
