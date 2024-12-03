@@ -80,7 +80,7 @@ onMounted(() => {
       canvas.value.width = window.innerWidth;
       canvas.value.height = window.innerHeight;
     });
-
+    console.log(window.innerWidth,window.innerHeight)
     class Sprite {
       constructor({ position, image, frames = { max: 1, hold: 12 }, sprites, animate = false, scale = 3 }) {
         this.position = position;
@@ -127,8 +127,8 @@ onMounted(() => {
       }
     }
 
-    const OFFSET_X = 1325;
-    const OFFSET_Y = 1510;
+    const OFFSET_X = 0.731 * window.innerWidth;
+    const OFFSET_Y =1.9 * window.innerHeight;
 
     const background = new Sprite({
       position: { x: -OFFSET_X, y: -OFFSET_Y },
@@ -141,7 +141,8 @@ onMounted(() => {
     });
 
     const player = new Sprite({
-      position: { x: canvas.value.width / 2 - 16, y: canvas.value.height / 2 - 24 },      image: { src: "/player/player_forward.png" },
+      position: { x: canvas.value.width / 2 - 16, y: canvas.value.height / 2 - 24 },
+      image: { src: "/player/player_forward.png" },
       frames: { max: 3, hold: 6 },
       sprites: {
         up: { src: "/player/player_back.png" },
