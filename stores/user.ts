@@ -17,6 +17,7 @@ export const useUserStore = defineStore("userStore", () => {
   const pokemon = ref<PokemonObject[]>([]);
   const allPokemon = ref<PokemonObject[]>([]);
   const onGrass = ref<boolean>();
+  const rhythmScore = ref(0);
 
   function $reset() {
     uid.value = "";
@@ -80,5 +81,5 @@ export const useUserStore = defineStore("userStore", () => {
     }
   }
 
-  return { uid, email, onGrass, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, fetchAllPokemon, addPokemon, returnPokemon, $reset };
+  return { uid, email, onGrass, rhythmScore, displayName, token, refreshToken, pokemon, allPokemon, expiration, fetchToken, saveData, fetchData, fetchAllPokemon, addPokemon, returnPokemon, $reset };
 });

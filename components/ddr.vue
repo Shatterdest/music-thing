@@ -1,15 +1,15 @@
 <template>
   <div class="h-screen w-screen">
     <div class="relative h-72">
-      <div class="relative h-full w-3/5 border border-black">
+      <div class="relative h-full w-auto">
         <div id="left" class="relative">
           <leftArrow id="leftArrow" v-for="item in leftNotes" :delay="item.val"></leftArrow>
         </div>
         <div class="absolute bottom-0">
-          <img class="data-buttonPressed:animate-spin rotate-90" data-buttonPressed="buttonPressed active" id="staticArrowLeft" src="../public/Arrow.png" />
-          <img class="absolute bottom-0 left-24 rotate-0" data-buttonPressed="buttonPressed inactive" id="staticArrowUp" src="../public/Arrow.png" />
-          <img class="absolute bottom-0 left-48 rotate-180" id="staticArrowDown" data-buttonPressed="buttonPressed inactive" src="../public/Arrow.png" />
-          <img class="absolute bottom-0 left-72 -rotate-90" data-buttonPressed="buttonPressed inactive" id="staticArrowRight" src="../public/Arrow.png" />
+          <img class="rotate-90" id="staticArrowLeft" src="../public/Arrow.png" />
+          <img class="absolute bottom-0 left-24 rotate-0" da id="staticArrowUp" src="../public/Arrow.png" />
+          <img class="absolute bottom-0 left-48 rotate-180" id="staticArrowDown" da src="../public/Arrow.png" />
+          <img @keypress="AnimationEffect" class="absolute bottom-0 left-72 -rotate-90"  id="staticArrowRight" src="../public/Arrow.png" />
         </div>
 
         <div id="down" class="relative ml-24">
@@ -22,13 +22,19 @@
           <rightArrow id="rightArrow" v-for="item in rightNotes" :delay="item.val"></rightArrow>
         </div>
       </div>
+      <div id="pokeScore">
+        <img class="ml-5 mt-5 scale-[1.5]" v-if="userStore.rhythmScore > 0 && userStore.rhythmScore <= 5" src="../public/balls/poke_ball.png" />
+        <img class="ml-5 mt-5 scale-[2]" v-if="userStore.rhythmScore > 5 && userStore.rhythmScore <= 10" src="../public/balls/great_ball.png" />
+        <img class="ml-5 mt-8 scale-[3]" v-if="userStore.rhythmScore > 10 && userStore.rhythmScore <= 15" src="../public/balls/ultra_ball.png" />
+        <img class="ml-5 mt-11 scale-[3.5]" src="../public/balls/master_ball.png" v-if="userStore.rhythmScore > 15" />
+      </div>
     </div>
     <audio controls id="audio"><source src="../public/RedBattle.mp3" type="audio/mp3" /></audio>
   </div>
 </template>
 
 <script setup lang="js">
-//repeat occurs at 13s
+const userStore = useUserStore();
 
 const leftNotes = ref([
   { val: "[animation-delay:_4.8s]" },
@@ -82,16 +88,14 @@ onNuxtReady(async () => {
   window.addEventListener("keydown", (e) => {
     if ((e.key == "ArrowLeft" || "ArrowDown" || "ArrowUp" || "ArrowRight") && !e.repeat) {
       document.getElementById("staticArrow" + e.key.slice(5));
-
       const targetArrow = ref(document.getElementById("staticArrowLeft").getBoundingClientRect().top.toFixed(0));
 
       const track = ref(document.getElementById(e.key.slice(5).toLowerCase()).firstElementChild.getBoundingClientRect().top.toFixed(0));
       if (track.value >= targetArrow.value - 36) {
         console.log("Hit.");
 
-        document.getElementById("staticArrow" + e.key.slice(5)).setAttribute("data-buttonPressed", "buttonPressed active");
+        userStore.rhythmScore++;
 
-        score++;
         console.log(score.value);
       } else {
         console.log(targetArrow.value);

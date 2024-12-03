@@ -39,7 +39,7 @@
       <img :style="{ transform: `translateX(${position3}px)` }" src="../public/bgExtractBird.png" alt="Pokemon3" class="pokemon absolute bottom-[40vh] w-[35vh]" />
     </div>
   </div> -->
-  <ddr></ddr>
+  <ddr ></ddr>
 </template>
 
 <script setup>

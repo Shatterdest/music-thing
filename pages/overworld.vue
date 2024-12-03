@@ -19,7 +19,7 @@
   </div>
 
   <div v-if="showDDR">
-    <div class="ddr-overlay">
+    <div class="ddr-overlay flex justify-center">
       <ddr />
     </div>
   </div>
@@ -79,8 +79,8 @@ onMounted(() => {
       canvas.value.height = window.innerHeight;
     };
     window.addEventListener("resize", resizeHandler);
-    
-    console.log(window.innerWidth,window.innerHeight)
+
+    console.log(window.innerWidth, window.innerHeight);
     class Sprite {
       constructor({ position, image, frames = { max: 1, hold: 12 }, sprites, animate = false, scale = 3 }) {
         this.position = position;
@@ -126,8 +126,8 @@ onMounted(() => {
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height, "red");
       }
     }
-    const REFERENCE_WIDTH = 1494; 
-    const REFERENCE_HEIGHT = 742; 
+    const REFERENCE_WIDTH = 1494;
+    const REFERENCE_HEIGHT = 742;
 
     const SCALE_X = window.innerWidth / REFERENCE_WIDTH;
     const SCALE_Y = window.innerHeight / REFERENCE_HEIGHT;
@@ -313,17 +313,14 @@ onMounted(() => {
     animate(0);
 
     onBeforeUnmount(() => {
-  clearInterval(intervalId.value);
-  window.removeEventListener("resize", resizeHandler);
-  console.log("Interval stopped");
-});
-
+      clearInterval(intervalId.value);
+      window.removeEventListener("resize", resizeHandler);
+      console.log("Interval stopped");
+    });
   } else {
     console.error("Canvas is not supported or not found.");
   }
-  
 });
-
 
 function wait(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
