@@ -251,9 +251,6 @@ onMounted(() => {
 
       background.draw();
       player.draw();
-      encounters.forEach((tile) => {
-        tile.draw();
-      });
       foreground.draw();
 
       handleMovement(deltaTime, speed);
