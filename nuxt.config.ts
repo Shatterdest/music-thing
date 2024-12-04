@@ -16,7 +16,5 @@ export default defineNuxtConfig({
   },
 
   modules: ["@pinia/nuxt", "@nuxtjs/tailwindcss"], 
-  routeRules: {
-    '/overworld': { ssr: false }
-  }
+  ssr: false
 });
