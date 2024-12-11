@@ -1,3 +1,9 @@
+# runs on firebase 
+# npm i to install dependencies 
+# https://pokerythm.netlify.app
+
+
+
 # Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
